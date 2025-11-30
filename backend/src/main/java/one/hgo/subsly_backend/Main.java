@@ -1,4 +1,4 @@
-package one.hgo.backend;
+package one.hgo.subsly_backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

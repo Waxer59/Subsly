@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>one.hgo</groupId>
-    <artifactId>backend</artifactId>
+    <artifactId>subsly-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>backend</name>
-    <description>backend</description>
+    <name>subsly-backend</name>
+    <description>subsly-backend</description>
     <url/>
     <licenses>
         <license/>

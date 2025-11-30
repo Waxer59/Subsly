@@ -8,7 +8,14 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { LucideAngularModule, Github } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  Github,
+  Eye,
+  TrendingDown,
+  PiggyBank,
+  Chromium,
+} from 'lucide-angular';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,6 +23,8 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    importProvidersFrom(LucideAngularModule.pick({ Github })),
+    importProvidersFrom(
+      LucideAngularModule.pick({ Github, Eye, TrendingDown, PiggyBank, Chromium }),
+    ),
   ],
 };
