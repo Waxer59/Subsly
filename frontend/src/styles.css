@@ -64,6 +64,10 @@ html {
   @apply bg-zinc-800 text-zinc-100;
 }
 
+body {
+  @apply max-w-7xl mx-auto w-[90%];
+}
+
 @layer base {
   * {
     @apply border-border;
