@@ -15,7 +15,14 @@ import {
   TrendingDown,
   PiggyBank,
   Chromium,
+  LogIn,
+  X,
+  Plus,
+  Settings,
+  Pencil,
+  Trash,
 } from 'lucide-angular';
+import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,7 +31,20 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
     importProvidersFrom(
-      LucideAngularModule.pick({ Github, Eye, TrendingDown, PiggyBank, Chromium }),
+      LucideAngularModule.pick({
+        Github,
+        Eye,
+        TrendingDown,
+        PiggyBank,
+        Chromium,
+        LogIn,
+        X,
+        Plus,
+        Settings,
+        Pencil,
+        Trash,
+      }),
     ),
+    provideCharts(withDefaultRegisterables()),
   ],
 };

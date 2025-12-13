@@ -1,0 +1,44 @@
+<hlm-dialog [state]="isDialogOpen() ? 'open' : 'closed'" (closed)="closeDialog()">
+  <button class="cursor-pointer" hlmBtn variant="outline" (click)="openDialog()">
+    <lucide-angular name="plus" class="text-white"></lucide-angular>
+  </button>
+  <hlm-dialog-content *brnDialogContent="let ctx" class="bg-zinc-800">
+    <hlm-dialog-header>
+      <h3 brnDialogTitle hlm class="font-bold">Add subscription</h3>
+    </hlm-dialog-header>
+    <form class="flex flex-col gap-4 mt-4" id="add-suscription-form">
+      <div class="grid w-full max-w-sm items-center gap-3">
+        <label hlmLabel for="service-url">Service url <span class="text-red-500">*</span></label>
+        <input hlmInput type="text" id="service-url" placeholder="https://amazon.com" required />
+      </div>
+      <div class="grid w-full max-w-sm items-center gap-3">
+        <label hlmLabel for="subcription-name">Subscription name</label>
+        <input hlmInput type="text" id="subcription-name" placeholder="Amazon prime" />
+      </div>
+      <div class="grid w-full max-w-sm items-center gap-3">
+        <label hlmLabel for="subscription-amount"
+          >Subscription amount <span class="text-red-500">*</span></label
+        >
+        <input hlmInput type="number" id="subscription-amount" placeholder="10.99" required />
+      </div>
+      <div class="grid w-full max-w-sm items-center gap-3">
+        <label hlmLabel for="subscription-amount">Renews every ... month/s</label>
+        <input
+          hlmInput
+          type="number"
+          id="subscription-amount"
+          placeholder="1"
+          min="1"
+          max="12"
+          value="1"
+        />
+      </div>
+    </form>
+    <hlm-dialog-footer class="mt-4">
+      <button hlmBtn variant="outline" class="cursor-pointer" brnDialogClose>Cancel</button>
+      <button hlmBtn type="submit" form="add-suscription-form" class="cursor-pointer">
+        Add subscription
+      </button>
+    </hlm-dialog-footer>
+  </hlm-dialog-content>
+</hlm-dialog>

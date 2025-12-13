@@ -19,6 +19,27 @@
       "@spartan-ng/helm/utils": [
         "./src/libs/ui/ui-utils-helm/src/index.ts"
       ],
+      "@spartan-ng/helm/dialog": [
+        "./src/libs/ui/ui-dialog-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/select": [
+        "./src/libs/ui/ui-select-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/icon": [
+        "./src/libs/ui/ui-icon-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/form-field": [
+        "./src/libs/ui/ui-form-field-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/avatar": [
+        "./src/libs/ui/ui-avatar-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/input": [
+        "./src/libs/ui/ui-input-helm/src/index.ts"
+      ],
+      "@spartan-ng/helm/card": [
+        "./src/libs/ui/ui-card-helm/src/index.ts"
+      ]
     }
   },
   "angularCompilerOptions": {

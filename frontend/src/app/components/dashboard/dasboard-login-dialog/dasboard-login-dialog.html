@@ -1,0 +1,19 @@
+<hlm-dialog [state]="isDialogOpen() ? 'open' : 'closed'" (closed)="closeDialog()">
+  <button hlmDialogTrigger hlmBtn class="cursor-pointer" variant="default" (click)="openDialog()">
+    Log in
+    <lucide-angular name="log-in" class="text-black" />
+  </button>
+  <hlm-dialog-content *brnDialogContent="let ctx" class="bg-zinc-800">
+    <hlm-dialog-header>
+      <h3 brnDialogTitle hlm class="font-bold">Log in</h3>
+    </hlm-dialog-header>
+    <div class="flex flex-col gap-4 mt-4">
+      <button hlmDialogTrigger hlmBtn class="cursor-pointer" variant="outline">
+        Continue with Google <app-google-icon class="text-white !h-5" />
+      </button>
+      <button hlmDialogTrigger hlmBtn class="cursor-pointer" variant="outline">
+        Continue with Github <lucide-angular name="github" class="text-white h-5" />
+      </button>
+    </div>
+  </hlm-dialog-content>
+</hlm-dialog>

@@ -4,12 +4,12 @@
 
 @font-face {
   font-family: 'Inter';
-  src: url('/Inter-VariableFont_opsz,wght.woff2') format('woff2');
+  src: url('/inter.woff2') format('woff2');
 }
 
 @font-face {
   font-family: 'Inter';
-  src: url('/Inter-Italic-VariableFont_opsz,wght.woff2') format('woff2');
+  src: url('/inter-italic.woff2') format('woff2');
   font-style: italic;
 }
 
@@ -65,7 +65,7 @@ html {
 }
 
 body {
-  @apply max-w-7xl mx-auto w-[90%];
+  @apply max-w-7xl mx-auto w-[90%] max-w-[1000px];
 }
 
 @layer base {
