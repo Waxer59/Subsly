@@ -7,8 +7,14 @@
     <hlm-dialog-header>
       <h3 brnDialogTitle hlm class="font-bold">Settings</h3>
     </hlm-dialog-header>
-    <form class="flex flex-col gap-4">
-      <brn-select class="inline-block ![&>label]:hidden" placeholder="Select currency">
+    <form class="flex flex-col gap-4" #form="ngForm" (submit)="saveChanges()" id="config-form">
+      <brn-select
+        class="inline-block ![&>label]:hidden"
+        placeholder="Select currency"
+        [value]="userSettingsService.userSettings().currency"
+        name="currency"
+        [(ngModel)]="userSettings.currency"
+      >
         <label brnSelectLabel></label>
         <hlm-select-trigger class="w-56">
           <hlm-select-value />
@@ -22,7 +28,7 @@
     </form>
     <hlm-dialog-footer class="mt-4">
       <button hlmBtn variant="outline" class="cursor-pointer" brnDialogClose>Cancel</button>
-      <button hlmBtn type="submit" class="cursor-pointer">Save changes</button>
+      <button hlmBtn type="submit" form="config-form" class="cursor-pointer">Save changes</button>
     </hlm-dialog-footer>
   </hlm-dialog-content>
 </hlm-dialog>
