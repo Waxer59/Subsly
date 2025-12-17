@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { BrnDialogImports } from '@spartan-ng/brain/dialog';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
-import { GoogleIcon } from '../../common/icons/google-icon/google-icon';
+import { GoogleIcon } from '@common/icons/google-icon/google-icon';
 import { LucideAngularModule } from 'lucide-angular';
 
 @Component({

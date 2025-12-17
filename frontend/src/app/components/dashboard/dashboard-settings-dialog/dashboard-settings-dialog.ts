@@ -5,10 +5,10 @@ import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 import { LucideAngularModule } from 'lucide-angular';
 import { BrnSelectImports } from '@spartan-ng/brain/select';
 import { HlmSelectImports } from '@spartan-ng/helm/select';
-import { CURRENCIES } from '../../../constants';
-import { UserSettingsService } from '../../../services/user-settings.service';
+import { CURRENCIES } from '@constants';
+import { UserSettingsService } from '@services/user-settings.service';
 import { FormsModule } from '@angular/forms';
-import { UserSettings } from '../../../types';
+import { UserSettings } from '@types';
 
 @Component({
   selector: 'app-dashboard-settings-dialog',

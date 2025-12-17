@@ -1,5 +1,5 @@
 import { effect, Injectable, signal } from '@angular/core';
-import { LocalStorageKey, Subscription } from '../types';
+import { LocalStorageKey, Subscription } from '@types';
 import { UserAccountService } from './user-account.service';
 import { LocalStorageService } from './local-storage.service';
 
@@ -72,11 +72,12 @@ export class UserSubscriptionsService {
     const newSubscriptions = [
       ...(localSubscriptions ?? []),
       {
-        id: crypto.randomUUID(),
         ...subscription,
+        id: crypto.randomUUID(),
       },
     ];
     this.localStorageService.set(LocalStorageKey.USER_SUBSCRIPTIONS, newSubscriptions);
+    this._userSubscriptions.set(newSubscriptions);
   }
 
   private saveRemoteUserSubscriptions(subscription: Omit<Subscription, 'id'>) {
@@ -89,6 +90,7 @@ export class UserSubscriptionsService {
     );
     const newSubscriptions = localSubscriptions?.filter((subscription) => subscription.id !== id);
     this.localStorageService.set(LocalStorageKey.USER_SUBSCRIPTIONS, newSubscriptions ?? []);
+    this._userSubscriptions.set(newSubscriptions ?? []);
   }
 
   private deleteRemoteUserSubscriptions(id: string) {
@@ -106,6 +108,7 @@ export class UserSubscriptionsService {
       return localSubscription;
     });
     this.localStorageService.set(LocalStorageKey.USER_SUBSCRIPTIONS, newSubscriptions ?? []);
+    this._userSubscriptions.set(newSubscriptions ?? []);
   }
 
   private editRemoteUserSubscription(subscription: Subscription) {

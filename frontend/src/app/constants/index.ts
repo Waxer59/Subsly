@@ -1,4 +1,4 @@
-import { Currency } from '../types';
+import { Currency } from '@types';
 
 export const CURRENCIES = [
   { value: Currency.USD, label: 'USD' },
