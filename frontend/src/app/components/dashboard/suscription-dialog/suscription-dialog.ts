@@ -4,7 +4,7 @@ import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
 import { LucideAngularModule } from 'lucide-angular';
 import { HlmInputImports } from '@spartan-ng/helm/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { z } from 'zod';
 import { Subscription } from '@types';
 import { toast } from 'ngx-sonner';
@@ -33,6 +33,7 @@ export class SuscriptionDialog {
   _isDialogOpen = signal(false);
   dialogOpen = output<boolean>();
   saveSubscription = output<Subscription>();
+  isEditing = input<boolean>(false);
 
   @Input()
   subscription: Subscription = {
@@ -59,7 +60,7 @@ export class SuscriptionDialog {
     this.dialogOpen.emit(false);
   }
 
-  saveChanges() {
+  saveChanges(form: NgForm) {
     const { error } = subcriptionSchema.safeParse(this.subscription);
 
     if (error) {
@@ -67,7 +68,7 @@ export class SuscriptionDialog {
       return;
     }
 
-    this.saveSubscription.emit(this.subscription);
+    this.saveSubscription.emit({ ...this.subscription, ...form.value });
     this.closeDialog();
   }
 }

@@ -62,6 +62,9 @@ importers:
       express:
         specifier: ^5.1.0
         version: 5.1.0
+      favicon-fetch:
+        specifier: ^1.0.0
+        version: 1.0.0
       lucide-angular:
         specifier: ^0.555.0
         version: 0.555.0(@angular/common@20.3.2(@angular/core@20.3.2(@angular/compiler@20.3.2)(rxjs@7.8.2))(rxjs@7.8.2))(@angular/core@20.3.2(@angular/compiler@20.3.2)(rxjs@7.8.2))
@@ -3917,6 +3920,9 @@ packages:
 
   fastq@1.19.1:
     resolution: {integrity: sha512-GwLTyxkCXjXbxqIhTsMI2Nui8huMPtnxg7krajPJAjnEG/iiOS7i+zCtWGZR9G0NBKbXKh6X9m9UIsYX/N6vvQ==}
+
+  favicon-fetch@1.0.0:
+    resolution: {integrity: sha512-qEbMwsKBebUGo/JpTyeE5aBus5nTsIcYV7qRd5hxGWA3wOrp67aKXBrH3O23tYkNjnOThTyw9TaUrtWwOe3Y1w==}
 
   faye-websocket@0.11.4:
     resolution: {integrity: sha512-CzbClwlXAuiRQAlUyfqPgvPoNKTckTPGfwZV4ZdAhVcP2lh9KUxJg2b5GkE7XbjKQ3YJnQ9z6D9ntLAlB+tP8g==}
@@ -11282,6 +11288,8 @@ snapshots:
   fastq@1.19.1:
     dependencies:
       reusify: 1.1.0
+
+  favicon-fetch@1.0.0: {}
 
   faye-websocket@0.11.4:
     dependencies:

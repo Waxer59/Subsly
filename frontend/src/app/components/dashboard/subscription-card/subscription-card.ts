@@ -1,4 +1,4 @@
-import { Component, effect, Input, signal } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmCard } from '@spartan-ng/helm/card';
 import { LucideAngularModule } from 'lucide-angular';
@@ -8,6 +8,7 @@ import { toast } from 'ngx-sonner';
 import { UserSettingsService } from '@/services/user-settings.service';
 import { CURRENCY_SYMBOLS } from '@/constants';
 import { SuscriptionDialog } from '../suscription-dialog/suscription-dialog';
+import faviconFetch from 'favicon-fetch';
 
 @Component({
   selector: 'app-suscription-card',
@@ -20,35 +21,16 @@ export class SubscriptionCard {
   })
   subscription!: Subscription;
 
-  amountLabel = signal<string>('');
-  amountPerYearLabel = signal<string>('');
   isDialogOpen = signal<boolean>(false);
+  faviconUrl!: Promise<string>;
 
   constructor(
     readonly userSubscriptionsService: UserSubscriptionsService,
     readonly userSettingsService: UserSettingsService,
-  ) {
-    effect(() => {
-      const amountPerMonth = +(this.subscription.amount / this.subscription.renews);
+  ) {}
 
-      if (this.userSettingsService.userSettings().currency === Currency.EUR) {
-        this.amountLabel.set(
-          amountPerMonth.toFixed(2) +
-            CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency],
-        );
-        this.amountPerYearLabel.set(
-          (amountPerMonth * 12).toFixed(2) +
-            CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency],
-        );
-      } else {
-        this.amountLabel.set(
-          CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency] + amountPerMonth,
-        );
-        this.amountPerYearLabel.set(
-          CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency] + amountPerMonth * 12,
-        );
-      }
-    });
+  fetchSubscriptionIcon() {
+    return faviconFetch({ uri: this.subscription.serviceUrl });
   }
 
   removeSubscription() {
@@ -63,5 +45,36 @@ export class SubscriptionCard {
 
   openDialog() {
     this.isDialogOpen.set(true);
+  }
+
+  get amountLabel() {
+    let label;
+    const amountPerMonth = +(this.subscription.amount / this.subscription.renews);
+
+    if (this.userSettingsService.userSettings().currency === Currency.EUR) {
+      label =
+        amountPerMonth.toFixed(2) +
+        CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency];
+    } else {
+      label = CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency] + amountPerMonth;
+    }
+
+    return label;
+  }
+
+  get amountPerYearLabel() {
+    let label;
+    const amountPerMonth = +(this.subscription.amount / this.subscription.renews);
+
+    if (this.userSettingsService.userSettings().currency === Currency.EUR) {
+      label =
+        (amountPerMonth * 12).toFixed(2) +
+        CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency];
+    } else {
+      label =
+        CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency] + amountPerMonth * 12;
+    }
+
+    return label;
   }
 }

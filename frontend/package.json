@@ -44,6 +44,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "express": "^5.1.0",
+    "favicon-fetch": "^1.0.0",
     "lucide-angular": "^0.555.0",
     "ng2-charts": "8.0.0",
     "ngx-sonner": ">=3.0.0",

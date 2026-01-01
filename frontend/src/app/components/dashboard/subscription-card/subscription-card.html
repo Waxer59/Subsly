@@ -1,9 +1,9 @@
 <li hlmCard class="w-full bg-zinc-800 flex p-4 flex-row max-w-[700px] mx-auto">
   <img
-    src="https://picsum.photos/id/1005/400/200"
-    alt="Avatar"
+    [src]="fetchSubscriptionIcon()"
+    alt="{{ subscription.name }} icon"
     class="object-cover w-[200px] h-[150px] rounded-md"
-    width="200px"
+    width="150px"
     height="150px"
   />
   <div class="flex flex-col gap-4 w-full">
@@ -20,6 +20,7 @@
           (dialogOpen)="isDialogOpen.set($event)"
           [isDialogOpen]="isDialogOpen()"
           [subscription]="subscription"
+          [isEditing]="true"
         >
           <button hlmBtn variant="outline" class="cursor-pointer" (click)="openDialog()">
             <lucide-angular name="pencil" class="text-white w-5 h-5"></lucide-angular>
@@ -31,8 +32,8 @@
       </div>
     </div>
     <div class="flex flex-col gap-2">
-      <p class="text-xl">{{ amountLabel() }} per month</p>
-      <p class="text-xl italic">{{ amountPerYearLabel() }} per year</p>
+      <p class="text-xl">{{ amountLabel }} per month</p>
+      <p class="text-xl italic">{{ amountPerYearLabel }} per year</p>
     </div>
   </div>
 </li>

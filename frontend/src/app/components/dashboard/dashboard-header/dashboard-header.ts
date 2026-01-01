@@ -17,12 +17,12 @@ import { GrapIllustration } from '@/common/illustrations/grap-illustration/grap-
   templateUrl: './dashboard-header.html',
 })
 export class DashboardHeader {
-  // TODO: Add subscription img
   @ViewChild(BaseChartDirective)
   chart!: BaseChartDirective;
 
   pieChartOptions: ChartOptions = {
     responsive: true,
+    locale: 'en',
     maintainAspectRatio: false,
     plugins: {
       colors: {
