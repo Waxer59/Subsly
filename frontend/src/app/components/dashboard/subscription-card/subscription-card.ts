@@ -29,14 +29,16 @@ export class SubscriptionCard {
     readonly userSettingsService: UserSettingsService,
   ) {
     effect(() => {
-      const amountPerMonth = +(this.subscription.amount / this.subscription.renews).toFixed(2);
+      const amountPerMonth = +(this.subscription.amount / this.subscription.renews);
 
       if (this.userSettingsService.userSettings().currency === Currency.EUR) {
         this.amountLabel.set(
-          amountPerMonth + CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency],
+          amountPerMonth.toFixed(2) +
+            CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency],
         );
         this.amountPerYearLabel.set(
-          amountPerMonth * 12 + CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency],
+          (amountPerMonth * 12).toFixed(2) +
+            CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency],
         );
       } else {
         this.amountLabel.set(
