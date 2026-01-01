@@ -12,6 +12,12 @@
 </div>
 
 <ul class="mt-16 flex flex-col gap-12 items-center justify-center">
+  @if (userSubscriptionsService.userSubscriptions().length === 0) {
+    <li hlmCard class="w-full bg-zinc-800 flex p-12 flex-row max-w-[700px] mx-auto">
+      <p class="text-lg text-center w-full">No subscriptions yet</p>
+    </li>
+  }
+
   @for (subcription of userSubscriptionsService.userSubscriptions(); track subcription.id) {
     <app-suscription-card [subscription]="subcription" class="w-full" />
   }

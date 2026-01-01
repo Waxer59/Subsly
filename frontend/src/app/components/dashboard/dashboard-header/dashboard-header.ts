@@ -1,4 +1,4 @@
-import { Component, effect, ViewChild } from '@angular/core';
+import { Component, effect, signal, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
 import { type ChartData, type ChartOptions, type ChartType } from 'chart.js';
@@ -9,14 +9,14 @@ import { UserSettingsService } from '@services/user-settings.service';
 import { UserSubscriptionsService } from '@services/user-subscriptions.service';
 import { Currency } from '@types';
 import { CURRENCY_SYMBOLS } from '@constants';
+import { GrapIllustration } from '@/common/illustrations/grap-illustration/grap-illustration';
 
 @Component({
   selector: 'app-dashboard-header',
-  imports: [BaseChartDirective, DasboardLoginDialog, DashboardSettingsDialog],
+  imports: [BaseChartDirective, DasboardLoginDialog, DashboardSettingsDialog, GrapIllustration],
   templateUrl: './dashboard-header.html',
 })
 export class DashboardHeader {
-  // TODO: Add empty subscriptions placeholder
   // TODO: Add subscription img
   @ViewChild(BaseChartDirective)
   chart!: BaseChartDirective;
@@ -32,13 +32,15 @@ export class DashboardHeader {
   };
 
   doughnutChartData: ChartData<'doughnut'> = {
-    datasets: [{ data: [0] }],
+    datasets: [{ data: [] }],
     labels: [],
   };
 
   doughnutChartType: ChartType = 'doughnut';
 
   spendingLabel = '';
+
+  isDataEmpty = signal(true);
 
   constructor(
     private readonly userSettingsService: UserSettingsService,
@@ -75,11 +77,8 @@ export class DashboardHeader {
         this.chart.update();
       }
 
-      // In case there are suscriptions remove "0" from the chart
       if (userSubscriptions.length > 0) {
-        this.doughnutChartData.datasets[0].data = this.doughnutChartData.datasets[0].data.filter(
-          (value) => value !== 0,
-        );
+        this.isDataEmpty.set(false);
       }
     });
   }
