@@ -3,7 +3,7 @@
     Settings
     <lucide-angular name="settings" class="text-white" />
   </button>
-  <hlm-dialog-content *brnDialogContent="let ctx" class="bg-zinc-800">
+  <hlm-dialog-content *brnDialogContent="let ctx" class="bg-zinc-800 flex flex-col !w-[250px]">
     <hlm-dialog-header>
       <h3 brnDialogTitle hlm class="font-bold">Settings</h3>
     </hlm-dialog-header>
@@ -16,10 +16,10 @@
         [(ngModel)]="userSettings.currency"
       >
         <label brnSelectLabel></label>
-        <hlm-select-trigger class="w-56">
+        <hlm-select-trigger class="w-full">
           <hlm-select-value />
         </hlm-select-trigger>
-        <hlm-select-content class="w-56">
+        <hlm-select-content class="w-full">
           @for (currency of currencies; track $index) {
             <hlm-option [value]="currency.value">{{ currency.label }}</hlm-option>
           }
