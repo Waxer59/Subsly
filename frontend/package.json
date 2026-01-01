@@ -40,6 +40,7 @@
     "@spartan-ng/brain": "0.0.1-alpha.520",
     "@tailwindcss/postcss": "^4.1.13",
     "chart.js": "^4.3.0",
+    "chartjs-plugin-annotation": "^3.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "express": "^5.1.0",

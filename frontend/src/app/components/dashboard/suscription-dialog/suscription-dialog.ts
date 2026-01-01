@@ -1,4 +1,4 @@
-import { Component, effect, input, output, signal } from '@angular/core';
+import { Component, effect, Input, input, output, signal } from '@angular/core';
 import { BrnDialogImports } from '@spartan-ng/brain/dialog';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { HlmDialogImports } from '@spartan-ng/helm/dialog';
@@ -34,6 +34,7 @@ export class SuscriptionDialog {
   dialogOpen = output<boolean>();
   saveSubscription = output<Subscription>();
 
+  @Input()
   subscription: Subscription = {
     id: '',
     name: '',
@@ -67,7 +68,6 @@ export class SuscriptionDialog {
     }
 
     this.saveSubscription.emit(this.subscription);
-    toast.success('Subscription saved!');
     this.closeDialog();
   }
 }

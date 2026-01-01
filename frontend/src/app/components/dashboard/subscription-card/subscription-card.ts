@@ -7,10 +7,11 @@ import { UserSubscriptionsService } from '@/services/user-subscriptions.service'
 import { toast } from 'ngx-sonner';
 import { UserSettingsService } from '@/services/user-settings.service';
 import { CURRENCY_SYMBOLS } from '@/constants';
+import { SuscriptionDialog } from '../suscription-dialog/suscription-dialog';
 
 @Component({
   selector: 'app-suscription-card',
-  imports: [HlmCard, HlmButton, LucideAngularModule],
+  imports: [HlmCard, HlmButton, LucideAngularModule, SuscriptionDialog],
   templateUrl: './subscription-card.html',
 })
 export class SubscriptionCard {
@@ -18,8 +19,10 @@ export class SubscriptionCard {
     required: true,
   })
   subscription!: Subscription;
+
   amountLabel = signal<string>('');
   amountPerYearLabel = signal<string>('');
+  isDialogOpen = signal<boolean>(false);
 
   constructor(
     readonly userSubscriptionsService: UserSubscriptionsService,
@@ -49,5 +52,14 @@ export class SubscriptionCard {
   removeSubscription() {
     this.userSubscriptionsService.removeUserSubscription(this.subscription.id);
     toast.success('Subscription removed!');
+  }
+
+  editSubscription(subcription: Subscription) {
+    this.userSubscriptionsService.editUserSubscription(subcription);
+    toast.success('Subscription updated!');
+  }
+
+  openDialog() {
+    this.isDialogOpen.set(true);
   }
 }

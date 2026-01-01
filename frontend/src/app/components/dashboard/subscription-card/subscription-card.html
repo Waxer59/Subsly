@@ -15,9 +15,16 @@
         </a>
       </h3>
       <div class="flex gap-4">
-        <button hlmBtn variant="outline" class="cursor-pointer">
-          <lucide-angular name="pencil" class="text-white w-5 h-5"></lucide-angular>
-        </button>
+        <app-suscription-dialog
+          (saveSubscription)="editSubscription($event)"
+          (dialogOpen)="isDialogOpen.set($event)"
+          [isDialogOpen]="isDialogOpen()"
+          [subscription]="subscription"
+        >
+          <button hlmBtn variant="outline" class="cursor-pointer" (click)="openDialog()">
+            <lucide-angular name="pencil" class="text-white w-5 h-5"></lucide-angular>
+          </button>
+        </app-suscription-dialog>
         <button hlmBtn variant="destructive" class="cursor-pointer" (click)="removeSubscription()">
           <lucide-angular name="trash" class="text-white w-5 h-5"></lucide-angular>
         </button>

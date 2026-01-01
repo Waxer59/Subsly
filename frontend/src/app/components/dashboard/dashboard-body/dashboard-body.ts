@@ -5,6 +5,7 @@ import { SuscriptionDialog } from '../suscription-dialog/suscription-dialog';
 import { UserSubscriptionsService } from '@services/user-subscriptions.service';
 import { HlmButton } from '@spartan-ng/helm/button';
 import { Subscription } from '@/types';
+import { toast } from 'ngx-sonner';
 
 @Component({
   selector: 'app-dashboard-body',
@@ -22,5 +23,6 @@ export class DashboardBody {
 
   saveSubscription(subscription: Subscription) {
     this.userSubscriptionsService.addUserSubscription(subscription);
+    toast.success('Subscription saved!');
   }
 }
