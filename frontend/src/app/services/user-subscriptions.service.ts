@@ -107,7 +107,6 @@ export class UserSubscriptionsService {
       }
       return localSubscription;
     });
-    console.log(newSubscriptions, subscription);
     this.localStorageService.set(LocalStorageKey.USER_SUBSCRIPTIONS, newSubscriptions ?? []);
     this._userSubscriptions.set(newSubscriptions ?? []);
   }

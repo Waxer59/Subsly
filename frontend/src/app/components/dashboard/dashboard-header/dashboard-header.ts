@@ -9,11 +9,11 @@ import { UserSettingsService } from '@services/user-settings.service';
 import { UserSubscriptionsService } from '@services/user-subscriptions.service';
 import { Currency } from '@types';
 import { CURRENCY_SYMBOLS } from '@constants';
-import { GrapIllustration } from '@/common/illustrations/grap-illustration/grap-illustration';
+import { GraphIllustration } from '@/common/illustrations/graph-illustration/graph-illustration';
 
 @Component({
   selector: 'app-dashboard-header',
-  imports: [BaseChartDirective, DasboardLoginDialog, DashboardSettingsDialog, GrapIllustration],
+  imports: [BaseChartDirective, DasboardLoginDialog, DashboardSettingsDialog, GraphIllustration],
   templateUrl: './dashboard-header.html',
 })
 export class DashboardHeader {
