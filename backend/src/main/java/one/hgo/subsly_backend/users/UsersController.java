@@ -19,9 +19,9 @@ public class UsersController {
 
     @GetMapping
     public ResponseEntity<UserDetails> getUsers() {
-        Optional<UserDetails> user = (Optional<UserDetails>) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return ResponseEntity.ok(user);
     }
 
     @Operation(

@@ -5,8 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import one.hgo.subsly_backend.subscriptions.entities.SubscriptionsEntity;
+import one.hgo.subsly_backend.userConfig.entities.UserConfigEntity;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -18,11 +21,13 @@ public class UsersEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String username;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String profile_picture;
 
     @Column(unique = true)
@@ -30,4 +35,10 @@ public class UsersEntity implements Serializable {
 
     @Column(unique = true)
     private String googleId;
+
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    private List<SubscriptionsEntity> subscriptions;
+
+    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    private UserConfigEntity userConfig;
 }

@@ -1,13 +1,11 @@
-package one.hgo.backend;
+package one.hgo.subsly_backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BackendApplicationTests {
-
+public class SubslyBackendTests {
     @Test
     void contextLoads() {
     }
-
 }
