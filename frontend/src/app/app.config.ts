@@ -21,14 +21,17 @@ import {
   Settings,
   Pencil,
   Trash,
+  Home,
 } from 'lucide-angular';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
+    provideHttpClient(),
     provideClientHydration(withEventReplay()),
     importProvidersFrom(
       LucideAngularModule.pick({
@@ -43,6 +46,7 @@ export const appConfig: ApplicationConfig = {
         Settings,
         Pencil,
         Trash,
+        Home,
       }),
     ),
     provideCharts(withDefaultRegisterables()),

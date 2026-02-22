@@ -16,7 +16,7 @@ export class UserSettingsService {
     private readonly localStorageService: LocalStorageService,
   ) {
     effect(() => {
-      const isLoggedIn = userAccountService.isLoggedIn();
+      const isLoggedIn = userAccountService.isAuthenticated;
       if (isLoggedIn) {
         this.loadRemoteConfig();
       } else {
@@ -26,7 +26,7 @@ export class UserSettingsService {
   }
 
   editUserSettings(value: Partial<UserSettings>) {
-    const isLoggedIn = this.userAccountService.isLoggedIn();
+    const isLoggedIn = this.userAccountService.isAuthenticated;
     if (isLoggedIn) {
       this.editRemoteUserSettings(value);
     } else {

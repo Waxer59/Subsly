@@ -15,7 +15,7 @@ export class UserSubscriptionsService {
     private readonly localStorageService: LocalStorageService,
   ) {
     effect(() => {
-      const isLoggedIn = userAccountService.isLoggedIn();
+      const isLoggedIn = userAccountService.isAuthenticated;
       if (isLoggedIn) {
         this.loadRemoteUserSubscriptions();
       } else {
@@ -25,7 +25,7 @@ export class UserSubscriptionsService {
   }
 
   editUserSubscription(subscription: Subscription) {
-    const isLoggedIn = this.userAccountService.isLoggedIn();
+    const isLoggedIn = this.userAccountService.isAuthenticated;
     if (isLoggedIn) {
       this.editRemoteUserSubscription(subscription);
     } else {
@@ -34,7 +34,7 @@ export class UserSubscriptionsService {
   }
 
   addUserSubscription(subscription: Omit<Subscription, 'id'>) {
-    const isLoggedIn = this.userAccountService.isLoggedIn();
+    const isLoggedIn = this.userAccountService.isAuthenticated;
     if (isLoggedIn) {
       this.saveRemoteUserSubscriptions(subscription);
     } else {
@@ -43,7 +43,7 @@ export class UserSubscriptionsService {
   }
 
   removeUserSubscription(id: string) {
-    const isLoggedIn = this.userAccountService.isLoggedIn();
+    const isLoggedIn = this.userAccountService.isAuthenticated;
     if (isLoggedIn) {
       this.deleteRemoteUserSubscriptions(id);
     } else {

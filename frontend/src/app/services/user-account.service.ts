@@ -1,17 +1,36 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { User } from '../types';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserAccountService {
-  private readonly _userAccount = signal<User | null>(null);
-  readonly isLoggedIn = computed(() => Boolean(this._userAccount()));
-  readonly userAccount = this._userAccount.asReadonly();
+  private readonly http = inject(HttpClient);
+  private readonly _userAccount = new BehaviorSubject<User | null | undefined>(undefined);
+  readonly userAccount$ = this._userAccount.asObservable();
 
   loadUserAccount() {
-    setTimeout(() => {
-      this._userAccount.set(null);
-    }, 1000);
+    this.http
+      .get<User>(`${environment.apiUrl}/users`, {
+        withCredentials: true,
+      })
+      .subscribe((user) => {
+        this._userAccount.next(user);
+      });
+  }
+
+  get user() {
+    return this._userAccount.getValue();
+  }
+
+  get hasLoadedUser() {
+    return this._userAccount.getValue() !== undefined;
+  }
+
+  get isAuthenticated() {
+    return this.user !== null;
   }
 }

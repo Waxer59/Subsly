@@ -8,12 +8,12 @@
       <h3 brnDialogTitle hlm class="font-bold">Log in</h3>
     </hlm-dialog-header>
     <div class="flex flex-col gap-4 mt-4">
-      <button hlmDialogTrigger hlmBtn class="cursor-pointer" variant="outline">
+      <a hlmDialogTrigger hlmBtn class="cursor-pointer" variant="outline" [href]="googleLoginUrl">
         Continue with Google <app-google-icon class="text-white !h-5" />
-      </button>
-      <button hlmDialogTrigger hlmBtn class="cursor-pointer" variant="outline">
+      </a>
+      <a hlmDialogTrigger hlmBtn class="cursor-pointer" variant="outline" [href]="githubLoginUrl">
         Continue with Github <lucide-angular name="github" class="text-white h-5" />
-      </button>
+      </a>
     </div>
   </hlm-dialog-content>
 </hlm-dialog>
