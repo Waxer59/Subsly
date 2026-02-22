@@ -2,6 +2,8 @@ import { effect, Injectable, signal } from '@angular/core';
 import { LocalStorageKey, Subscription } from '@types';
 import { UserAccountService } from './user-account.service';
 import { LocalStorageService } from './local-storage.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +15,7 @@ export class UserSubscriptionsService {
   constructor(
     private readonly userAccountService: UserAccountService,
     private readonly localStorageService: LocalStorageService,
+    private readonly http: HttpClient,
   ) {
     effect(() => {
       const isLoggedIn = userAccountService.isAuthenticated;
@@ -31,9 +34,17 @@ export class UserSubscriptionsService {
     } else {
       this.editLocalUserSubscription(subscription);
     }
+
+    const newSubscriptions = this.userSubscriptions()?.map((remoteSubscription) => {
+      if (subscription.id === remoteSubscription.id) {
+        return subscription;
+      }
+      return remoteSubscription;
+    });
+    this._userSubscriptions.set(newSubscriptions ?? []);
   }
 
-  addUserSubscription(subscription: Omit<Subscription, 'id'>) {
+  addUserSubscription(subscription: Subscription) {
     const isLoggedIn = this.userAccountService.isAuthenticated;
     if (isLoggedIn) {
       this.saveRemoteUserSubscriptions(subscription);
@@ -62,15 +73,18 @@ export class UserSubscriptionsService {
   }
 
   private loadRemoteUserSubscriptions() {
-    console.log('remote user subscriptions');
+    this.http
+      .get<Subscription[]>(`${environment.apiUrl}/subscriptions`, {
+        withCredentials: true,
+      })
+      .subscribe((subscriptions) => {
+        this._userSubscriptions.set(subscriptions);
+      });
   }
 
   private saveLocalUserSubscriptions(subscription: Omit<Subscription, 'id'>) {
-    const localSubscriptions = this.localStorageService.get<Subscription[]>(
-      LocalStorageKey.USER_SUBSCRIPTIONS,
-    );
     const newSubscriptions = [
-      ...(localSubscriptions ?? []),
+      ...(this.userSubscriptions() ?? []),
       {
         ...subscription,
         id: crypto.randomUUID(),
@@ -80,28 +94,40 @@ export class UserSubscriptionsService {
     this._userSubscriptions.set(newSubscriptions);
   }
 
-  private saveRemoteUserSubscriptions(subscription: Omit<Subscription, 'id'>) {
-    console.log('remote', subscription);
+  private saveRemoteUserSubscriptions(subscription: Subscription) {
+    this.http
+      .post(`${environment.apiUrl}/subscriptions`, subscription, {
+        withCredentials: true,
+      })
+      .subscribe((data) => {
+        const newSubscriptions = [...(this.userSubscriptions() ?? []), data as Subscription];
+        this._userSubscriptions.set(newSubscriptions);
+      });
   }
 
   private deleteLocalUserSubscriptions(id: string) {
-    const localSubscriptions = this.localStorageService.get<Subscription[]>(
-      LocalStorageKey.USER_SUBSCRIPTIONS,
+    const newSubscriptions = this.userSubscriptions()?.filter(
+      (subscription) => subscription.id !== id,
     );
-    const newSubscriptions = localSubscriptions?.filter((subscription) => subscription.id !== id);
     this.localStorageService.set(LocalStorageKey.USER_SUBSCRIPTIONS, newSubscriptions ?? []);
     this._userSubscriptions.set(newSubscriptions ?? []);
   }
 
   private deleteRemoteUserSubscriptions(id: string) {
-    console.log('remote', id);
+    this.http
+      .delete(`${environment.apiUrl}/subscriptions/${id}`, {
+        withCredentials: true,
+      })
+      .subscribe(() => {
+        const newSubscriptions = this.userSubscriptions()?.filter(
+          (subscription) => subscription.id !== id,
+        );
+        this._userSubscriptions.set(newSubscriptions ?? []);
+      });
   }
 
   private editLocalUserSubscription(subscription: Subscription) {
-    const localSubscriptions = this.localStorageService.get<Subscription[]>(
-      LocalStorageKey.USER_SUBSCRIPTIONS,
-    );
-    const newSubscriptions = localSubscriptions?.map((localSubscription) => {
+    const newSubscriptions = this.userSubscriptions()?.map((localSubscription) => {
       if (subscription.id === localSubscription.id) {
         return subscription;
       }
@@ -112,6 +138,19 @@ export class UserSubscriptionsService {
   }
 
   private editRemoteUserSubscription(subscription: Subscription) {
-    console.log('remote', subscription);
+    this.http
+      .put(`${environment.apiUrl}/subscriptions/${subscription.id}`, subscription, {
+        withCredentials: true,
+      })
+      .subscribe(() => {
+        const newSubscriptions = this.userSubscriptions()?.map((remoteSubscription) => {
+          if (subscription.id === remoteSubscription.id) {
+            return subscription;
+          }
+          return remoteSubscription;
+        });
+        console.log(newSubscriptions);
+        this._userSubscriptions.set(newSubscriptions ?? []);
+      });
   }
 }

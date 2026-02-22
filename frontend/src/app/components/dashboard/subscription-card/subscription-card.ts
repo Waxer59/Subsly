@@ -56,7 +56,9 @@ export class SubscriptionCard {
         amountPerMonth.toFixed(2) +
         CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency];
     } else {
-      label = CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency] + amountPerMonth;
+      label =
+        CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency] +
+        amountPerMonth.toFixed(2);
     }
 
     return label;

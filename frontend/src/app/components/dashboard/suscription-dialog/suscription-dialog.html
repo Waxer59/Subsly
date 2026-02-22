@@ -19,7 +19,7 @@
           placeholder="https://amazon.com"
           required
           name="serviceUrl"
-          [ngModel]="subscription.serviceUrl"
+          [(ngModel)]="subscription.serviceUrl"
         />
       </div>
       <div class="grid w-full max-w-sm items-center gap-3">
@@ -30,7 +30,7 @@
           id="subcription-name"
           placeholder="Amazon prime"
           name="name"
-          [ngModel]="subscription.name"
+          [(ngModel)]="subscription.name"
         />
       </div>
       <div class="grid w-full max-w-sm items-center gap-3">
@@ -45,7 +45,7 @@
           placeholder="10.99"
           required
           name="amount"
-          [ngModel]="subscription.amount"
+          [(ngModel)]="subscription.amount"
         />
       </div>
       <div class="grid w-full max-w-sm items-center gap-3">
@@ -59,7 +59,7 @@
           max="12"
           value="1"
           name="renewsEvery"
-          [ngModel]="subscription.renewsEvery"
+          [(ngModel)]="subscription.renewsEvery"
         />
       </div>
     </form>

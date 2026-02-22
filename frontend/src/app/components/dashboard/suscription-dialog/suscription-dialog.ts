@@ -70,5 +70,16 @@ export class SuscriptionDialog {
 
     this.saveSubscription.emit({ ...this.subscription, ...form.value });
     this.closeDialog();
+    this.reset();
+  }
+
+  reset() {
+    this.subscription = {
+      id: '',
+      name: '',
+      amount: 0,
+      renewsEvery: 1,
+      serviceUrl: '',
+    };
   }
 }
