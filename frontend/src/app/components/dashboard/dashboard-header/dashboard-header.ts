@@ -8,7 +8,7 @@ import { DashboardSettingsDialog } from '../dashboard-settings-dialog/dashboard-
 import { UserSettingsService } from '@services/user-settings.service';
 import { UserSubscriptionsService } from '@services/user-subscriptions.service';
 import { Currency } from '@types';
-import { CURRENCY_SYMBOLS } from '@constants';
+import { CURRENCY_SYMBOLS, DEFAULT_CONFIG } from '@constants';
 import { GraphIllustration } from '@/common/illustrations/graph-illustration/graph-illustration';
 
 @Component({
@@ -49,7 +49,7 @@ export class DashboardHeader {
     Chart.register(annotationPlugin);
 
     effect(() => {
-      const userSettings = userSettingsService.userSettings();
+      const userSettings = userSettingsService.userSettings() ?? DEFAULT_CONFIG;
       const userSubscriptions = userSubscriptionsService.userSubscriptions() ?? [];
 
       const spending = userSubscriptions.reduce((acc, subscription) => {
