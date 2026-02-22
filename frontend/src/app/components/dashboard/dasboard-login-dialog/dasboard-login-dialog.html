@@ -27,16 +27,21 @@
       Log in
       <lucide-angular name="log-in" class="text-black" />
     </button>
-    <hlm-dialog-content *brnDialogContent="let ctx" class="bg-zinc-800">
+    <hlm-dialog-content
+      *brnDialogContent="let ctx"
+      class="bg-zinc-800 flex flex-col !max-w-[250px] w-full"
+    >
       <hlm-dialog-header>
         <h3 brnDialogTitle hlm class="font-bold">Log in</h3>
       </hlm-dialog-header>
       <div class="flex flex-col gap-4 mt-4">
         <a hlmDialogTrigger hlmBtn class="cursor-pointer" variant="outline" [href]="googleLoginUrl">
-          Continue with Google <app-google-icon class="text-white !h-5" />
+          <span class="hidden sm:inline">Continue with</span> Google
+          <app-google-icon class="text-white !h-5" />
         </a>
         <a hlmDialogTrigger hlmBtn class="cursor-pointer" variant="outline" [href]="githubLoginUrl">
-          Continue with Github <lucide-angular name="github" class="text-white h-5" />
+          <span class="hidden sm:inline">Continue with</span> Github
+          <lucide-angular name="github" class="text-white h-5" />
         </a>
       </div>
     </hlm-dialog-content>

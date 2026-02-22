@@ -11,7 +11,7 @@ export class UserAccountService {
   private readonly _userAccount = new BehaviorSubject<User | null | undefined>(undefined);
   readonly userAccount$ = this._userAccount.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   loadUserAccount() {
     this.http

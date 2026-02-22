@@ -3,7 +3,10 @@
     Settings
     <lucide-angular name="settings" class="text-white" />
   </button>
-  <hlm-dialog-content *brnDialogContent="let ctx" class="bg-zinc-800 flex flex-col !w-[250px]">
+  <hlm-dialog-content
+    *brnDialogContent="let ctx"
+    class="bg-zinc-800 flex flex-col !max-w-[250px] w-full"
+  >
     <hlm-dialog-header>
       <h3 brnDialogTitle hlm class="font-bold">Settings</h3>
     </hlm-dialog-header>
