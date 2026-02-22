@@ -27,7 +27,10 @@ public class UserConfigService {
     }
 
     public UserConfigDetails updateOrCreateUserConfigDetails(Long userId, UserConfigDetails userConfigDetailsUpdate) {
+        Optional<UserConfigDetails> userConfigDetails = getUserConfigDetails(userId);
         UserConfigEntity userConfigEntity = mapToUserConfigEntity(userConfigDetailsUpdate);
+
+        userConfigDetails.ifPresent(configDetails -> userConfigEntity.setId(configDetails.getId()));
 
         userConfigEntity.setUser(UsersEntity.builder()
                 .id(userId)
@@ -56,12 +59,14 @@ public class UserConfigService {
 
     private UserConfigDetails mapToUserConfigDetails(UserConfigEntity userConfigDetails) {
         return UserConfigDetails.builder()
+                .id(userConfigDetails.getId())
                 .currency(userConfigDetails.getCurrency())
                 .build();
     }
 
     private UserConfigEntity mapToUserConfigEntity(UserConfigDetails userConfigDetails) {
         return UserConfigEntity.builder()
+                .id(userConfigDetails.getId())
                 .currency(userConfigDetails.getCurrency())
                 .build();
     }

@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import one.hgo.subsly_backend.subscriptions.dto.SubscriptionDetails;
 import one.hgo.subsly_backend.users.dtos.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,15 @@ public class SubscriptionsController {
         Optional<SubscriptionDetails> updatedSubscriptionDetails = this.subscriptionsService.updateSubscriptionDetails(id, user.getId(), subscriptionDetails);
 
         return updatedSubscriptionDetails.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    public ResponseEntity<SubscriptionDetails> createSubscription(@RequestBody SubscriptionDetails subscriptionDetails) {
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        SubscriptionDetails createdSubscriptionDetails = this.subscriptionsService.createSubscriptionDetails(user.getId(), subscriptionDetails);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdSubscriptionDetails);
     }
 
     @DeleteMapping("/{id}")

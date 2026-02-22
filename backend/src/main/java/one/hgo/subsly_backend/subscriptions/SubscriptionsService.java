@@ -1,5 +1,6 @@
 package one.hgo.subsly_backend.subscriptions;
 
+import jakarta.transaction.Transactional;
 import one.hgo.subsly_backend.subscriptions.dto.SubscriptionDetails;
 import one.hgo.subsly_backend.subscriptions.entities.SubscriptionsEntity;
 import one.hgo.subsly_backend.subscriptions.repositories.SubscriptionsRespository;
@@ -38,6 +39,20 @@ public class SubscriptionsService {
         return subscriptionDetails;
     }
 
+    public SubscriptionDetails createSubscriptionDetails(Long userId, SubscriptionDetails subscriptionDetails) {
+        SubscriptionsEntity subscriptionsEntity = mapToSubscriptionEntity(subscriptionDetails);
+
+        subscriptionsEntity.setUser(
+                UsersEntity.builder()
+                        .id(userId)
+                        .build()
+        );
+
+        SubscriptionsEntity savedSubscription = this.subscriptionsRespository.save(subscriptionsEntity);
+
+        return mapToSubscriptionDetails(savedSubscription);
+    }
+
     public Optional<SubscriptionDetails> updateSubscriptionDetails(Long id, Long userId, SubscriptionDetails subscriptionDetails) {
         Optional<SubscriptionDetails> subscriptionDetailsOptional = getSubscriptionDetails(id, userId);
         Optional<SubscriptionDetails> updatedSubscription = Optional.empty();
@@ -45,12 +60,20 @@ public class SubscriptionsService {
         if (subscriptionDetailsOptional.isPresent()) {
             SubscriptionsEntity subscriptionsEntity = mapToSubscriptionEntity(subscriptionDetails);
             subscriptionsEntity.setId(id);
+            subscriptionsEntity.setUser(
+                    UsersEntity.builder()
+                            .id(userId)
+                            .build()
+            );
             this.subscriptionsRespository.save(subscriptionsEntity);
+
+            updatedSubscription = Optional.of(mapToSubscriptionDetails(subscriptionsEntity));
         }
 
         return updatedSubscription;
     }
 
+    @Transactional
     public void deleteSubscription(Long id, Long userId) {
         this.subscriptionsRespository.deleteByIdAndUser_Id(id, userId);
     }
