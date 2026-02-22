@@ -25,10 +25,10 @@ public class SubscriptionsEntity implements Serializable {
     private String serviceUrl;
 
     @Column(nullable = false)
-    private String subscriptionName;
+    private String name;
 
     @Column(nullable = false)
-    private Float subscriptionAmount;
+    private Float amount;
 
     @Size(min = 1, max = 12)
     @Column(nullable = false)

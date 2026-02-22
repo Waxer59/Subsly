@@ -12,7 +12,7 @@ import { toast } from 'ngx-sonner';
 const subcriptionSchema = z.object({
   name: z.string().min(1),
   amount: z.number().min(0),
-  renews: z.number().min(1).max(12),
+  renewsEvery: z.number().min(1).max(12),
   serviceUrl: z.url(),
 });
 
@@ -40,7 +40,7 @@ export class SuscriptionDialog {
     id: '',
     name: '',
     amount: 0,
-    renews: 1,
+    renewsEvery: 1,
     serviceUrl: '',
   };
 

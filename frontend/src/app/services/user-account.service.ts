@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { User } from '../types';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
@@ -8,9 +8,10 @@ import { BehaviorSubject, catchError, of } from 'rxjs';
   providedIn: 'root',
 })
 export class UserAccountService {
-  private readonly http = inject(HttpClient);
   private readonly _userAccount = new BehaviorSubject<User | null | undefined>(undefined);
   readonly userAccount$ = this._userAccount.asObservable();
+
+  constructor(private http: HttpClient) {}
 
   loadUserAccount() {
     this.http

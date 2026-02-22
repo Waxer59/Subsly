@@ -49,7 +49,7 @@ export class SubscriptionCard {
 
   get amountLabel() {
     let label;
-    const amountPerMonth = +(this.subscription.amount / this.subscription.renews);
+    const amountPerMonth = +(this.subscription.amount / this.subscription.renewsEvery);
 
     if (this.userSettingsService.userSettings().currency === Currency.EUR) {
       label =
@@ -64,7 +64,7 @@ export class SubscriptionCard {
 
   get amountPerYearLabel() {
     let label;
-    const amountPerMonth = +(this.subscription.amount / this.subscription.renews);
+    const amountPerMonth = +(this.subscription.amount / this.subscription.renewsEvery);
 
     if (this.userSettingsService.userSettings().currency === Currency.EUR) {
       label =

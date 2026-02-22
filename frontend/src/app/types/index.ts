@@ -22,6 +22,6 @@ export interface Subscription {
   id: string;
   name: string;
   amount: number;
-  renews: number;
+  renewsEvery: number;
   serviceUrl: string;
 }

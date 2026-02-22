@@ -3,6 +3,7 @@ package one.hgo.subsly_backend.subscriptions;
 import one.hgo.subsly_backend.subscriptions.dto.SubscriptionDetails;
 import one.hgo.subsly_backend.subscriptions.entities.SubscriptionsEntity;
 import one.hgo.subsly_backend.subscriptions.repositories.SubscriptionsRespository;
+import one.hgo.subsly_backend.users.entities.UsersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +17,11 @@ public class SubscriptionsService {
     private SubscriptionsRespository subscriptionsRespository;
 
     public Optional<List<SubscriptionDetails>> getAllSubscriptionDetails(Long user_id) {
-        Optional<List<SubscriptionsEntity>> subscriptionsEntity = this.subscriptionsRespository.findAllByUser_Id(user_id);
+        List<SubscriptionsEntity> subscriptionsEntity = this.subscriptionsRespository.findAllByUser_Id(user_id);
         Optional<List<SubscriptionDetails>> subscriptionDetails = Optional.empty();
 
-        if (subscriptionsEntity.isPresent()) {
-            subscriptionDetails = Optional.of(subscriptionsEntity.get().stream().map(this::mapToSubscriptionDetails).toList());
+        if (!subscriptionsEntity.isEmpty()) {
+            subscriptionDetails = Optional.of(subscriptionsEntity.stream().map(this::mapToSubscriptionDetails).toList());
         }
 
         return subscriptionDetails;
@@ -54,11 +55,32 @@ public class SubscriptionsService {
         this.subscriptionsRespository.deleteByIdAndUser_Id(id, userId);
     }
 
+    public void initializeSubscriptions(Long userId, List<SubscriptionDetails> subscriptionDetails) {
+        Optional<List<SubscriptionDetails>> userSubscriptionDetails = getAllSubscriptionDetails(userId);
+        List<SubscriptionsEntity> subscriptionsEntities;
+
+        if (userSubscriptionDetails.isEmpty()) {
+            subscriptionsEntities = subscriptionDetails.stream().map(
+                    sd -> {
+                        SubscriptionsEntity subscriptionsEntity = mapToSubscriptionEntity(sd);
+                        subscriptionsEntity.setUser(
+                                UsersEntity.builder()
+                                        .id(userId)
+                                        .build()
+                        );
+
+                        return subscriptionsEntity;
+                    }
+            ).toList();
+            this.subscriptionsRespository.saveAll(subscriptionsEntities);
+        }
+    }
+
     private SubscriptionDetails mapToSubscriptionDetails(SubscriptionsEntity subscriptionsEntity) {
         return SubscriptionDetails.builder()
                 .id(subscriptionsEntity.getId())
-                .subscriptionAmount(subscriptionsEntity.getSubscriptionAmount())
-                .subscriptionName(subscriptionsEntity.getSubscriptionName())
+                .amount(subscriptionsEntity.getAmount())
+                .name(subscriptionsEntity.getName())
                 .renewsEvery(subscriptionsEntity.getRenewsEvery())
                 .serviceUrl(subscriptionsEntity.getServiceUrl())
                 .build();
@@ -67,8 +89,8 @@ public class SubscriptionsService {
     private SubscriptionsEntity mapToSubscriptionEntity(SubscriptionDetails subscriptionDetails) {
         return SubscriptionsEntity.builder()
                 .id(subscriptionDetails.getId())
-                .subscriptionName(subscriptionDetails.getSubscriptionName())
-                .subscriptionAmount(subscriptionDetails.getSubscriptionAmount())
+                .name(subscriptionDetails.getName())
+                .amount(subscriptionDetails.getAmount())
                 .serviceUrl(subscriptionDetails.getServiceUrl())
                 .renewsEvery(subscriptionDetails.getRenewsEvery())
                 .build();

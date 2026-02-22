@@ -38,6 +38,22 @@ public class UserConfigService {
         return userConfigDetailsUpdate;
     }
 
+    public void initializeConfig(Long userId, UserConfigDetails userConfigDetailsUpdate) {
+        Optional<UserConfigDetails> currentUserConfig = getUserConfigDetails(userId);
+
+        if (currentUserConfig.isEmpty()) {
+            UserConfigEntity userConfigEntity = mapToUserConfigEntity(userConfigDetailsUpdate);
+
+            userConfigEntity.setUser(
+                    UsersEntity.builder()
+                            .id(userId)
+                            .build()
+            );
+
+            userConfigRepository.save(userConfigEntity);
+        }
+    }
+
     private UserConfigDetails mapToUserConfigDetails(UserConfigEntity userConfigDetails) {
         return UserConfigDetails.builder()
                 .currency(userConfigDetails.getCurrency())

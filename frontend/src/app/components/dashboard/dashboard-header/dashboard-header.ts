@@ -53,7 +53,7 @@ export class DashboardHeader {
       const userSubscriptions = userSubscriptionsService.userSubscriptions();
 
       const spending = userSubscriptions.reduce((acc, subscription) => {
-        return acc + subscription.amount / subscription.renews;
+        return acc + subscription.amount / subscription.renewsEvery;
       }, 0);
 
       const fixedSpending = spending.toFixed(2);
@@ -68,7 +68,7 @@ export class DashboardHeader {
       this.doughnutChartData.labels = [];
 
       userSubscriptions.forEach((subscription) => {
-        const fixedAmount = +(subscription.amount / subscription.renews).toFixed(2);
+        const fixedAmount = +(subscription.amount / subscription.renewsEvery).toFixed(2);
         this.doughnutChartData.datasets[0].data.push(fixedAmount);
         this.doughnutChartData.labels!.push(subscription.name);
       });

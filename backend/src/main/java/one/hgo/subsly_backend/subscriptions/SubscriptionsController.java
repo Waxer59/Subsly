@@ -1,5 +1,8 @@
 package one.hgo.subsly_backend.subscriptions;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import one.hgo.subsly_backend.subscriptions.dto.SubscriptionDetails;
 import one.hgo.subsly_backend.users.dtos.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +45,23 @@ public class SubscriptionsController {
             this.subscriptionsService.deleteSubscription(id, user.getId());
             return ResponseEntity.noContent().build();
         }).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @Operation(
+            summary = "Initializes the user suscriptions",
+            description = "When the user logs in for the first time, we must migrate their local subscription to the newly created account. This endpoint performs this task."
+    )
+    @ApiResponses(
+            value = {
+                    @ApiResponse(responseCode = "204", description = "Subscriptions migrated successfully"),
+                    @ApiResponse(responseCode = "400", description = "The user already have subscriptions, unable to migrate subscriptions")
+            }
+    )
+    @PostMapping("/initialize")
+    public ResponseEntity<String> initialize(@RequestBody List<SubscriptionDetails> subscriptions) {
+        UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        this.subscriptionsService.initializeSubscriptions(user.getId(), subscriptions);
+        return ResponseEntity.noContent().build();
     }
 }

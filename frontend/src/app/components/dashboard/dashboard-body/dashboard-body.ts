@@ -20,7 +20,7 @@ export class DashboardBody {
     id: '',
     name: '',
     amount: 0,
-    renews: 1,
+    renewsEvery: 1,
     serviceUrl: '',
   };
 
