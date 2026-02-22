@@ -1,10 +1,10 @@
-FROM maven:3.9.6-eclipse-temurin-21-alpine AS build
+FROM maven:3-eclipse-temurin-25-alpine AS build
 WORKDIR /app
 COPY . .
 RUN mvn package -DskipTests
 
-FROM eclipse-temurin:21-jre-alpine
-COPY --from=build /app/target/backend-spring-0.0.1-SNAPSHOT.jar /app.jar
+FROM eclipse-temurin:25-alpine-3.23
+COPY --from=build /app/target/subsly-backend-0.0.1-SNAPSHOT.jar /app.jar
 
 EXPOSE 8080
 
