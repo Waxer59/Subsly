@@ -76,7 +76,7 @@ export class UserSubscriptionsService implements OnInit {
     );
 
     if (localSubscriptions) {
-      this._userSubscriptions.set(localSubscriptions);
+      this._userSubscriptions.set(localSubscriptions ?? []);
     }
   }
 
@@ -86,7 +86,7 @@ export class UserSubscriptionsService implements OnInit {
         withCredentials: true,
       })
       .subscribe((subscriptions) => {
-        this._userSubscriptions.set(subscriptions);
+        this._userSubscriptions.set(subscriptions ?? []);
       });
   }
 
@@ -99,7 +99,7 @@ export class UserSubscriptionsService implements OnInit {
       },
     ];
     this.localStorageService.set(LocalStorageKey.USER_SUBSCRIPTIONS, newSubscriptions);
-    this._userSubscriptions.set(newSubscriptions);
+    this._userSubscriptions.set(newSubscriptions ?? []);
   }
 
   private saveRemoteUserSubscriptions(subscription: Subscription) {
@@ -109,7 +109,7 @@ export class UserSubscriptionsService implements OnInit {
       })
       .subscribe((data) => {
         const newSubscriptions = [...(this.userSubscriptions() ?? []), data as Subscription];
-        this._userSubscriptions.set(newSubscriptions);
+        this._userSubscriptions.set(newSubscriptions ?? []);
       });
   }
 
@@ -157,7 +157,6 @@ export class UserSubscriptionsService implements OnInit {
           }
           return remoteSubscription;
         });
-        console.log(newSubscriptions);
         this._userSubscriptions.set(newSubscriptions ?? []);
       });
   }
