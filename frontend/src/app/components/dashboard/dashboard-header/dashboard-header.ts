@@ -50,7 +50,7 @@ export class DashboardHeader {
 
     effect(() => {
       const userSettings = userSettingsService.userSettings();
-      const userSubscriptions = userSubscriptionsService.userSubscriptions();
+      const userSubscriptions = userSubscriptionsService.userSubscriptions() ?? [];
 
       const spending = userSubscriptions.reduce((acc, subscription) => {
         return acc + subscription.amount / subscription.renewsEvery;
