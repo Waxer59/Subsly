@@ -26,14 +26,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
         Cookie cookie = WebUtils.getCookie(request, AuthService.AUTH_COOKIE);
         Optional<UserDetails> user = Optional.empty();
 
-        System.out.println(request.getCookies());
-
         if (cookie != null) {
             user = this.authService.getUserByJwtToken(cookie.getValue());
         }
 
         if (user.isPresent()) {
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user, null, null);
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(user.get(), null, null);
             authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authToken);
         }

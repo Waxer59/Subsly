@@ -1,19 +1,44 @@
-<hlm-dialog [state]="isDialogOpen() ? 'open' : 'closed'" (closed)="closeDialog()">
-  <button hlmDialogTrigger hlmBtn class="cursor-pointer" variant="default" (click)="openDialog()">
-    Log in
-    <lucide-angular name="log-in" class="text-black" />
+@if (this.user()) {
+  <button
+    hlmBtn
+    variant="ghost"
+    size="icon"
+    class="rounded-full cursor-pointer"
+    [hlmDropdownMenuTrigger]="menu"
+  >
+    <hlm-avatar size="lg">
+      <img hlmAvatarImage [src]="this.user()!.profile_picture" alt="Profile picture" />
+      <span hlmAvatarFallback>{{ this.userInitials() }}</span>
+    </hlm-avatar>
   </button>
-  <hlm-dialog-content *brnDialogContent="let ctx" class="bg-zinc-800">
-    <hlm-dialog-header>
-      <h3 brnDialogTitle hlm class="font-bold">Log in</h3>
-    </hlm-dialog-header>
-    <div class="flex flex-col gap-4 mt-4">
-      <a hlmDialogTrigger hlmBtn class="cursor-pointer" variant="outline" [href]="googleLoginUrl">
-        Continue with Google <app-google-icon class="text-white !h-5" />
-      </a>
-      <a hlmDialogTrigger hlmBtn class="cursor-pointer" variant="outline" [href]="githubLoginUrl">
-        Continue with Github <lucide-angular name="github" class="text-white h-5" />
-      </a>
-    </div>
-  </hlm-dialog-content>
-</hlm-dialog>
+
+  <ng-template #menu>
+    <hlm-dropdown-menu class="bg-zinc-800 p-2 mt-4">
+      <hlm-dropdown-menu-group>
+        <button hlmDropdownMenuItem variant="destructive" class="cursor-pointer" (click)="logout()">
+          Log out
+        </button>
+      </hlm-dropdown-menu-group>
+    </hlm-dropdown-menu>
+  </ng-template>
+} @else {
+  <hlm-dialog [state]="isDialogOpen() ? 'open' : 'closed'" (closed)="closeDialog()">
+    <button hlmDialogTrigger hlmBtn class="cursor-pointer" variant="default" (click)="openDialog()">
+      Log in
+      <lucide-angular name="log-in" class="text-black" />
+    </button>
+    <hlm-dialog-content *brnDialogContent="let ctx" class="bg-zinc-800">
+      <hlm-dialog-header>
+        <h3 brnDialogTitle hlm class="font-bold">Log in</h3>
+      </hlm-dialog-header>
+      <div class="flex flex-col gap-4 mt-4">
+        <a hlmDialogTrigger hlmBtn class="cursor-pointer" variant="outline" [href]="googleLoginUrl">
+          Continue with Google <app-google-icon class="text-white !h-5" />
+        </a>
+        <a hlmDialogTrigger hlmBtn class="cursor-pointer" variant="outline" [href]="githubLoginUrl">
+          Continue with Github <lucide-angular name="github" class="text-white h-5" />
+        </a>
+      </div>
+    </hlm-dialog-content>
+  </hlm-dialog>
+}

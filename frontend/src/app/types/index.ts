@@ -1,6 +1,6 @@
 export interface User {
-  name: string;
-  avatar: string;
+  username: string;
+  profile_picture: string;
 }
 
 export enum Currency {

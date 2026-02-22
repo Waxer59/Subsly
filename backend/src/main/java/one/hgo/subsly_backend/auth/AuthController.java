@@ -3,6 +3,7 @@ package one.hgo.subsly_backend.auth;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,7 +28,7 @@ public class AuthController {
         return null;
     }
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public void logout(HttpServletResponse response) {
         this.authService.logout(response);
     }

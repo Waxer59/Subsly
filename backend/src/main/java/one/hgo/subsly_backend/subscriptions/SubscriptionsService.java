@@ -16,7 +16,7 @@ public class SubscriptionsService {
     private SubscriptionsRespository subscriptionsRespository;
 
     public Optional<List<SubscriptionDetails>> getAllSubscriptionDetails(Long user_id) {
-        Optional<List<SubscriptionsEntity>> subscriptionsEntity = this.subscriptionsRespository.findAllUser_Id(user_id);
+        Optional<List<SubscriptionsEntity>> subscriptionsEntity = this.subscriptionsRespository.findAllByUser_Id(user_id);
         Optional<List<SubscriptionDetails>> subscriptionDetails = Optional.empty();
 
         if (subscriptionsEntity.isPresent()) {
@@ -42,8 +42,7 @@ public class SubscriptionsService {
         Optional<SubscriptionDetails> updatedSubscription = Optional.empty();
 
         if (subscriptionDetailsOptional.isPresent()) {
-            SubscriptionDetails updatedSubscriptionDetails = subscriptionDetailsOptional.get();
-            SubscriptionsEntity subscriptionsEntity = mapToSubscriptionEntity(updatedSubscriptionDetails);
+            SubscriptionsEntity subscriptionsEntity = mapToSubscriptionEntity(subscriptionDetails);
             subscriptionsEntity.setId(id);
             this.subscriptionsRespository.save(subscriptionsEntity);
         }

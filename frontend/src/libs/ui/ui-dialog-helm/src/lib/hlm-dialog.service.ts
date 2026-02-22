@@ -1,9 +1,8 @@
 import type { ComponentType } from '@angular/cdk/portal';
-import { Injectable, type TemplateRef, inject } from '@angular/core';
+import { inject, Injectable, type TemplateRef } from '@angular/core';
 import {
   type BrnDialogOptions,
   BrnDialogService,
-  DEFAULT_BRN_DIALOG_OPTIONS,
   cssClassesToArray,
 } from '@spartan-ng/brain/dialog';
 import { HlmDialogContent } from './hlm-dialog-content';
@@ -25,8 +24,6 @@ export class HlmDialogService {
     options?: Partial<HlmDialogOptions>,
   ) {
     const mergedOptions = {
-      ...DEFAULT_BRN_DIALOG_OPTIONS,
-
       ...(options ?? {}),
       backdropClass: cssClassesToArray(`${hlmDialogOverlayClass} ${options?.backdropClass ?? ''}`),
       context: {

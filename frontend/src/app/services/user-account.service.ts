@@ -1,8 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { User } from '../types';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { BehaviorSubject } from 'rxjs';
+import { environment } from '@environments/environment';
+import { BehaviorSubject, catchError, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -17,8 +17,19 @@ export class UserAccountService {
       .get<User>(`${environment.apiUrl}/users`, {
         withCredentials: true,
       })
+      .pipe(catchError(() => of(null)))
       .subscribe((user) => {
         this._userAccount.next(user);
+      });
+  }
+
+  logout() {
+    this.http
+      .post(`${environment.apiUrl}/auth/logout`, null, {
+        withCredentials: true,
+      })
+      .subscribe(() => {
+        this._userAccount.next(null);
       });
   }
 
