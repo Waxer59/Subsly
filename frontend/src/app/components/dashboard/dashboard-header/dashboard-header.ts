@@ -58,7 +58,7 @@ export class DashboardHeader {
 
       const fixedSpending = spending.toFixed(2);
 
-      if (userSettings.currency === Currency.EUR) {
+      if (userSettings?.currency === Currency.EUR) {
         this.spendingLabel = fixedSpending + CURRENCY_SYMBOLS[userSettings.currency];
       } else {
         this.spendingLabel = CURRENCY_SYMBOLS[userSettings.currency] + fixedSpending;
