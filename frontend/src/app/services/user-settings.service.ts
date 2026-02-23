@@ -74,7 +74,9 @@ export class UserSettingsService implements OnInit {
         withCredentials: true,
       })
       .subscribe((userSettings) => {
-        this._userSettings.set(userSettings);
+        if (userSettings) {
+          this._userSettings.set(userSettings);
+        }
       });
   }
 }
