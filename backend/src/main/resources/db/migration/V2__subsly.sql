@@ -27,18 +27,9 @@ CREATE TABLE users_entity
     profile_picture VARCHAR(255)                            NOT NULL,
     github_id       VARCHAR(255),
     google_id       VARCHAR(255),
-    user_config_id  BIGINT,
+    is_initialized BOOLEAN,
     CONSTRAINT pk_usersentity PRIMARY KEY (id)
 );
-
-CREATE TABLE users_entity_subscriptions
-(
-    users_entity_id  BIGINT NOT NULL,
-    subscriptions_id BIGINT NOT NULL
-);
-
-ALTER TABLE users_entity_subscriptions
-    ADD CONSTRAINT uc_users_entity_subscriptions_subscriptions UNIQUE (subscriptions_id);
 
 ALTER TABLE users_entity
     ADD CONSTRAINT uc_usersentity_email UNIQUE (email);
@@ -54,12 +45,3 @@ ALTER TABLE subscriptions_entity
 
 ALTER TABLE user_config_entity
     ADD CONSTRAINT FK_USERCONFIGENTITY_ON_USER FOREIGN KEY (user_id) REFERENCES users_entity (id);
-
-ALTER TABLE users_entity
-    ADD CONSTRAINT FK_USERSENTITY_ON_USERCONFIG FOREIGN KEY (user_config_id) REFERENCES user_config_entity (id);
-
-ALTER TABLE users_entity_subscriptions
-    ADD CONSTRAINT fk_useentsub_on_subscriptions_entity FOREIGN KEY (subscriptions_id) REFERENCES subscriptions_entity (id);
-
-ALTER TABLE users_entity_subscriptions
-    ADD CONSTRAINT fk_useentsub_on_users_entity FOREIGN KEY (users_entity_id) REFERENCES users_entity (id);
