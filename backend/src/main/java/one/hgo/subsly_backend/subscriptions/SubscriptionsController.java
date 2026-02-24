@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import one.hgo.subsly_backend.subscriptions.dto.SubscriptionDetails;
+import one.hgo.subsly_backend.users.UsersService;
 import one.hgo.subsly_backend.users.dtos.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,12 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/subscriptions")
 public class SubscriptionsController {
+
     @Autowired
     private SubscriptionsService subscriptionsService;
+
+    @Autowired
+    private UsersService usersService;
 
     @GetMapping
     public ResponseEntity<List<SubscriptionDetails>> getSubscriptions() {
@@ -71,7 +76,13 @@ public class SubscriptionsController {
     public ResponseEntity<String> initialize(@RequestBody List<SubscriptionDetails> subscriptions) {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+        if (user.getIsInitialized()) {
+            return ResponseEntity.badRequest().build();
+        }
+
         this.subscriptionsService.initializeSubscriptions(user.getId(), subscriptions);
+        this.usersService.markUserAsInitialized(user.getId());
+
         return ResponseEntity.noContent().build();
     }
 }

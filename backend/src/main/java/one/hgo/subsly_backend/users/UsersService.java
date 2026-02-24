@@ -62,6 +62,7 @@ public class UsersService {
                     .profile_picture(oauthUserDetails.getProfile_picture())
                     .githubId(oauthUserDetails.getGithubId())
                     .googleId(oauthUserDetails.getGoogleId())
+                    .isInitialized(false)
                     .build();
             usersRepository.save(newUserEntity);
 
@@ -69,11 +70,31 @@ public class UsersService {
         }
     }
 
+    public void markUserAsInitialized(Long userId) {
+        Optional<UsersEntity> userEntity = usersRepository.findById(userId);
+
+        if (userEntity.isPresent()) {
+            userEntity.get().setEmail(userEntity.get().getEmail());
+            userEntity.get().setIsInitialized(true);
+            usersRepository.save(userEntity.get());
+        }
+    }
+
     private UserDetails mapToUserDetails(UsersEntity userDetails) {
         return UserDetails.builder()
                 .id(userDetails.getId())
                 .username(userDetails.getUsername())
+                .isInitialized(userDetails.getIsInitialized())
                 .profile_picture(userDetails.getProfile_picture())
+                .build();
+    }
+
+    private UsersEntity mapToUserEntity(UserDetails userDetails) {
+        return UsersEntity.builder()
+                .id(userDetails.getId())
+                .username(userDetails.getUsername())
+                .profile_picture(userDetails.getProfile_picture())
+                .isInitialized(userDetails.getIsInitialized())
                 .build();
     }
 }

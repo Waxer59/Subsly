@@ -23,7 +23,7 @@ public class UserConfigEntity implements Serializable {
 
     private CurrenciesEnum currency;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private UsersEntity user;
 }

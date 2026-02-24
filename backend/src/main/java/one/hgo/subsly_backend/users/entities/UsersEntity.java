@@ -36,9 +36,11 @@ public class UsersEntity implements Serializable {
     @Column(unique = true)
     private String googleId;
 
-    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    private Boolean isInitialized;
+
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "user")
     private List<SubscriptionsEntity> subscriptions;
 
-    @OneToOne(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
     private UserConfigEntity userConfig;
 }

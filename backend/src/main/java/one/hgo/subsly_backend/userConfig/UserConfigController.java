@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import one.hgo.subsly_backend.userConfig.dtos.UserConfigDetails;
+import one.hgo.subsly_backend.users.UsersService;
 import one.hgo.subsly_backend.users.dtos.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,9 @@ public class UserConfigController {
 
     @Autowired
     private UserConfigService userConfigService;
+
+    @Autowired
+    private UsersService usersService;
 
     @GetMapping
     public ResponseEntity<UserConfigDetails> getUserConfig() {
@@ -49,7 +53,12 @@ public class UserConfigController {
     public ResponseEntity<String> initialize(@RequestBody UserConfigDetails userConfigDetailsBody) {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
+        if (user.getIsInitialized()) {
+            return ResponseEntity.badRequest().build();
+        }
+
         this.userConfigService.initializeConfig(user.getId(), userConfigDetailsBody);
+        this.usersService.markUserAsInitialized(user.getId());
 
         return ResponseEntity.noContent().build();
     }

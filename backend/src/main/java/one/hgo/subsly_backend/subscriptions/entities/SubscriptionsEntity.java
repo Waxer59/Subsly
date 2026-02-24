@@ -34,7 +34,7 @@ public class SubscriptionsEntity implements Serializable {
     @Column(nullable = false)
     private Integer renewsEvery;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private UsersEntity user;
 }
