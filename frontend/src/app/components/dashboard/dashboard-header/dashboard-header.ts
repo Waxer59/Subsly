@@ -77,9 +77,7 @@ export class DashboardHeader {
         this.chart.update();
       }
 
-      if (userSubscriptions.length > 0) {
-        this.isDataEmpty.set(false);
-      }
+      this.isDataEmpty.set(userSubscriptions.length <= 0);
     });
   }
 }
