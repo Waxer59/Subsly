@@ -1,4 +1,4 @@
-import { effect, Injectable, OnInit, signal } from '@angular/core';
+import { Injectable, OnInit, signal } from '@angular/core';
 import { LocalStorageKey, UserSettings } from '../types';
 import { DEFAULT_CONFIG } from '../constants';
 import { UserAccountService } from './user-account.service';
@@ -18,9 +18,8 @@ export class UserSettingsService implements OnInit {
     private readonly localStorageService: LocalStorageService,
     private readonly http: HttpClient,
   ) {
-    effect(() => {
-      const isLoggedIn = userAccountService.isAuthenticated;
-      if (isLoggedIn) {
+    userAccountService.userAccount$.subscribe((user) => {
+      if (user) {
         this.loadRemoteConfig();
       } else {
         this.loadLocalConfig();

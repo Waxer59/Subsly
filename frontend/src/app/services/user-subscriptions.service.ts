@@ -1,4 +1,4 @@
-import { effect, Injectable, OnInit, signal } from '@angular/core';
+import { Injectable, OnInit, signal } from '@angular/core';
 import { LocalStorageKey, Subscription } from '@types';
 import { UserAccountService } from './user-account.service';
 import { LocalStorageService } from './local-storage.service';
@@ -17,9 +17,8 @@ export class UserSubscriptionsService implements OnInit {
     private readonly localStorageService: LocalStorageService,
     private readonly http: HttpClient,
   ) {
-    effect(() => {
-      const isLoggedIn = userAccountService.isAuthenticated;
-      if (isLoggedIn) {
+    userAccountService.userAccount$.subscribe((user) => {
+      if (user) {
         this.loadRemoteUserSubscriptions();
       } else {
         this.loadLocalUserSubscriptions();

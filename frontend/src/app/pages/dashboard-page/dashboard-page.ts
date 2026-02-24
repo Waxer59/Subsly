@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
 import { LocalStorageService } from '@/services/local-storage.service';
 import { LocalStorageKey, Subscription, UserSettings } from '@/types';
+import { UserAccountService } from '../../services/user-account.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -16,14 +17,19 @@ export class DashboardPage implements OnInit {
   constructor(
     private readonly http: HttpClient,
     private readonly localStorageService: LocalStorageService,
+    private readonly userAccountService: UserAccountService,
   ) {}
 
   private areSubscriptionsInitialized = false;
   private isConfigInitialized = false;
 
   ngOnInit(): void {
-    this.initializeSubscriptions();
-    this.initializeConfig();
+    this.userAccountService.userAccount$.subscribe((user) => {
+      if (user) {
+        this.initializeSubscriptions();
+        this.initializeConfig();
+      }
+    });
   }
 
   initializeConfig() {

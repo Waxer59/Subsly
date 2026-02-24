@@ -43,6 +43,6 @@ export class UserAccountService {
   }
 
   get isAuthenticated() {
-    return this.user !== null;
+    return this.user != null;
   }
 }
