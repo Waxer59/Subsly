@@ -122,7 +122,7 @@ Subsly includes a Chrome extension that lets users **quickly add subscriptions f
 
 1. In Chrome, go to `chrome://extensions`.
 2. Enable **Developer mode**.
-3. Click **Load unpacked** and select the `chrome-extension` folder.
+3. Click **Load unpacked** and select the `chrome-extension/dist` folder.
 4. The extension will install locally.
 
 Use it to capture subscription services as you browse and add them to your Subsly dashboard.
