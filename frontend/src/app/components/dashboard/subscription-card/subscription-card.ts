@@ -30,7 +30,8 @@ export class SubscriptionCard {
   ) {}
 
   fetchSubscriptionIcon() {
-    return faviconFetch({ uri: this.subscription.serviceUrl });
+    const url = new URL(this.subscription.serviceUrl);
+    return faviconFetch({ hostname: url.hostname });
   }
 
   removeSubscription() {
