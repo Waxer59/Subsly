@@ -5,23 +5,23 @@ import { defineConfig } from 'vite'
 import zip from 'vite-plugin-zip-pack'
 import manifest from './manifest.config.js'
 import { name, version } from './package.json'
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   resolve: {
     alias: {
-      '@': `${path.resolve(__dirname, 'src')}`,
-    },
+      '@': `${path.resolve(__dirname, 'src')}`
+    }
   },
   plugins: [
     react(),
+    tailwindcss(),
     crx({ manifest }),
-    zip({ outDir: 'release', outFileName: `crx-${name}-${version}.zip` }),
+    zip({ outDir: 'release', outFileName: `crx-${name}-${version}.zip` })
   ],
   server: {
     cors: {
-      origin: [
-        /chrome-extension:\/\//,
-      ],
-    },
-  },
+      origin: [/chrome-extension:\/\//]
+    }
+  }
 })
