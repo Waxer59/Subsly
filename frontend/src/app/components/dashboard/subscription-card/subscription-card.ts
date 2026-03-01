@@ -51,15 +51,12 @@ export class SubscriptionCard {
   get amountLabel() {
     let label;
     const amountPerMonth = +(this.subscription.amount / this.subscription.renewsEvery);
+    const formattedAmount = amountPerMonth.toFixed(2);
 
     if (this.userSettingsService.userSettings().currency === Currency.EUR) {
-      label =
-        amountPerMonth.toFixed(2) +
-        CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency];
+      label = formattedAmount + CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency];
     } else {
-      label =
-        CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency] +
-        amountPerMonth.toFixed(2);
+      label = CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency] + formattedAmount;
     }
 
     return label;
@@ -68,14 +65,12 @@ export class SubscriptionCard {
   get amountPerYearLabel() {
     let label;
     const amountPerMonth = +(this.subscription.amount / this.subscription.renewsEvery);
+    const formattedAmount = amountPerMonth.toFixed(2);
 
     if (this.userSettingsService.userSettings().currency === Currency.EUR) {
-      label =
-        (amountPerMonth * 12).toFixed(2) +
-        CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency];
+      label = formattedAmount + CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency];
     } else {
-      label =
-        CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency] + amountPerMonth * 12;
+      label = CURRENCY_SYMBOLS[this.userSettingsService.userSettings().currency] + formattedAmount;
     }
 
     return label;
