@@ -34,7 +34,10 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public void logout(HttpServletResponse response) {
+    public void logout(HttpServletResponse response, HttpSession session) {
+        if (session != null) {
+            session.invalidate();
+        }
         this.authService.logout(response);
     }
 }
