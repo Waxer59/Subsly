@@ -65,7 +65,7 @@ html {
 }
 
 body {
-  @apply max-w-7xl mx-auto w-[90%] max-w-[1000px];
+  @apply max-w-7xl mx-auto w-[90%];
 }
 
 @layer base {
