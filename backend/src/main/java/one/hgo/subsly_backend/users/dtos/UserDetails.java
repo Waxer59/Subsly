@@ -1,6 +1,6 @@
 package one.hgo.subsly_backend.users.dtos;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
@@ -11,6 +11,6 @@ public class UserDetails {
     private String username;
     private String profile_picture;
 
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @JsonIgnore
     private Boolean isInitialized;
 }
