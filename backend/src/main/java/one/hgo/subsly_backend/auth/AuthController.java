@@ -25,7 +25,10 @@ public class AuthController {
     }
 
     @GetMapping("/login/google")
-    public String loginGoogle(HttpServletResponse response) throws IOException {
+    public String loginGoogle(HttpServletResponse response, @RequestParam(required = false) PlatformEnum platform, HttpSession session) throws IOException {
+        if (platform == null) platform = PlatformEnum.WEB;
+
+        session.setAttribute("platform", platform);
         response.sendRedirect("/api/oauth2/authorization/google");
         return null;
     }

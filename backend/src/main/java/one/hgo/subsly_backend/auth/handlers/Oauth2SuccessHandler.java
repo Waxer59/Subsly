@@ -40,6 +40,7 @@ public class Oauth2SuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         if (authentication.getPrincipal() instanceof OAuth2User oAuth2User) {
             String token = "";
+
             PlatformEnum platform = (PlatformEnum) request.getSession().getAttribute("platform");
             String redirectUrl = FRONTEND_URL;
 
