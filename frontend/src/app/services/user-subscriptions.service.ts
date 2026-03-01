@@ -62,18 +62,13 @@ export class UserSubscriptionsService {
   }
 
   private loadLocalUserSubscriptions() {
-    console.log('loadLocalUserSubcriptions');
-    const localSubscriptions = this.localStorageService.get<Subscription[]>(
-      LocalStorageKey.USER_SUBSCRIPTIONS,
-    );
+    const localSubscriptions =
+      this.localStorageService.get<Subscription[]>(LocalStorageKey.USER_SUBSCRIPTIONS) ?? [];
 
-    if (localSubscriptions) {
-      this._userSubscriptions.set(localSubscriptions ?? []);
-    }
+    this._userSubscriptions.set(localSubscriptions);
   }
 
   private loadRemoteUserSubscriptions() {
-    console.log('loadRemoteUserSubscriptions');
     this.http
       .get<Subscription[]>(`${environment.apiUrl}/subscriptions`, {
         withCredentials: true,
