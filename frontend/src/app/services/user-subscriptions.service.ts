@@ -1,4 +1,4 @@
-import { Injectable, OnInit, signal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { LocalStorageKey, Subscription } from '@types';
 import { UserAccountService } from './user-account.service';
 import { LocalStorageService } from './local-storage.service';
@@ -8,7 +8,7 @@ import { environment } from '@environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-export class UserSubscriptionsService implements OnInit {
+export class UserSubscriptionsService {
   private readonly _userSubscriptions = signal<Subscription[]>([]);
   readonly userSubscriptions = this._userSubscriptions.asReadonly();
 
@@ -21,15 +21,6 @@ export class UserSubscriptionsService implements OnInit {
       if (user) {
         this.loadRemoteUserSubscriptions();
       } else {
-        this.loadLocalUserSubscriptions();
-      }
-    });
-  }
-
-  ngOnInit(): void {
-    this.userAccountService.userAccount$.subscribe((user) => {
-      console.log(user);
-      if (!user) {
         this.loadLocalUserSubscriptions();
       }
     });
@@ -71,6 +62,7 @@ export class UserSubscriptionsService implements OnInit {
   }
 
   private loadLocalUserSubscriptions() {
+    console.log('loadLocalUserSubcriptions');
     const localSubscriptions = this.localStorageService.get<Subscription[]>(
       LocalStorageKey.USER_SUBSCRIPTIONS,
     );
@@ -81,6 +73,7 @@ export class UserSubscriptionsService implements OnInit {
   }
 
   private loadRemoteUserSubscriptions() {
+    console.log('loadRemoteUserSubscriptions');
     this.http
       .get<Subscription[]>(`${environment.apiUrl}/subscriptions`, {
         withCredentials: true,
