@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import one.hgo.subsly_backend.auth.AuthService;
 import one.hgo.subsly_backend.auth.dtos.JwtAuthClaims;
+import one.hgo.subsly_backend.auth.enums.PlatformEnum;
 import one.hgo.subsly_backend.auth.services.JwtService;
 import one.hgo.subsly_backend.users.UsersService;
 import one.hgo.subsly_backend.users.dtos.UserDetails;
@@ -23,6 +24,9 @@ public class Oauth2SuccessHandler implements AuthenticationSuccessHandler {
     @Value("${frontend.url}")
     private String FRONTEND_URL;
 
+    @Value("${chrome-extension.id}")
+    private String CHROME_EXTENSION_ID;
+
     @Autowired
     private JwtService jwtService;
 
@@ -36,6 +40,12 @@ public class Oauth2SuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         if (authentication.getPrincipal() instanceof OAuth2User oAuth2User) {
             String token = "";
+            PlatformEnum platform = (PlatformEnum) request.getSession().getAttribute("platform");
+            String redirectUrl = FRONTEND_URL;
+
+            if (platform.equals(PlatformEnum.CHROME_EXTENSION)) {
+                redirectUrl = "https://" + CHROME_EXTENSION_ID + ".chromiumapp.org";
+            }
 
             Optional<UserDetails> userDetails = this.usersService.loadByOauthProviderId(oAuth2User.getName());
 
@@ -46,13 +56,12 @@ public class Oauth2SuccessHandler implements AuthenticationSuccessHandler {
             }
 
             if (token.isBlank()) {
-                System.out.println("token is empty");
-                response.sendRedirect(FRONTEND_URL + "?auth_error=true");
-            } else {
-                this.authService.setCookie(response, token);
-                response.sendRedirect(FRONTEND_URL);
+                response.sendRedirect(redirectUrl + "?auth_error=true");
+                return;
             }
 
+            this.authService.setCookie(response, token);
+            response.sendRedirect(redirectUrl);
         }
     }
 }

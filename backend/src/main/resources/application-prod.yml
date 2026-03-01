@@ -48,5 +48,8 @@ jwt:
   secret: ${JWT_SECRET}
   expiration: ${JWT_EXPIRATION}
 
+chrome-extension:
+  id: ${CHROME_EXTENSION_ID}
+
 frontend:
   url: ${FRONTEND_URL}

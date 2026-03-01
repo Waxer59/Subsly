@@ -48,6 +48,9 @@ jwt:
 frontend:
   url: ${FRONTEND_URL}
 
+chrome-extension:
+  id: ${CHROME_EXTENSION_ID}
+
 logging:
   level:
     org.springframework.security: DEBUG
