@@ -28,6 +28,7 @@ export class UserSubscriptionsService implements OnInit {
 
   ngOnInit(): void {
     this.userAccountService.userAccount$.subscribe((user) => {
+      console.log(user);
       if (!user) {
         this.loadLocalUserSubscriptions();
       }
