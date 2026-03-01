@@ -12,7 +12,7 @@
   <div class="flex flex-col gap-4 w-full">
     <div class="flex items-center justify-between gap-8 w-full">
       <h3 class="text-2xl font-bold truncate text-ellipsis overflow-hidden max-w-[18ch]">
-        <a [href]="subscription.serviceUrl" class="group"
+        <a [href]="subscription.serviceUrl" target="_blank" class="group"
           >{{ subscription.name ? subscription.name : subscription.serviceUrl }}
           <div class="bg-white h-[2px] w-0 group-hover:w-full transition-all duration-500"></div>
         </a>
