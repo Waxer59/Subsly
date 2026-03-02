@@ -13,7 +13,7 @@ import { useAccount } from '@/hooks/useAccount'
 import { GithubIcon } from 'lucide-react'
 
 export const LoginModal = () => {
-  const { retreiveUser } = useAccount()
+  const { retrieve } = useAccount()
 
   const handleOauthLogin = (provider: string) => {
     const authUrl = `${API_URL}/auth/login/${provider}?platform=chrome_extension`
@@ -22,7 +22,7 @@ export const LoginModal = () => {
         url: authUrl,
         interactive: true
       })
-      .then(retreiveUser)
+      .then(retrieve)
   }
 
   return (

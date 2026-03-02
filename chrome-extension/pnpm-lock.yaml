@@ -17,6 +17,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      favicon-fetch:
+        specifier: ^1.0.0
+        version: 1.0.0
       lucide-react:
         specifier: ^0.575.0
         version: 0.575.0(react@19.1.1)
@@ -2267,6 +2270,9 @@ packages:
 
   fastq@1.19.1:
     resolution: {integrity: sha512-GwLTyxkCXjXbxqIhTsMI2Nui8huMPtnxg7krajPJAjnEG/iiOS7i+zCtWGZR9G0NBKbXKh6X9m9UIsYX/N6vvQ==}
+
+  favicon-fetch@1.0.0:
+    resolution: {integrity: sha512-qEbMwsKBebUGo/JpTyeE5aBus5nTsIcYV7qRd5hxGWA3wOrp67aKXBrH3O23tYkNjnOThTyw9TaUrtWwOe3Y1w==}
 
   fdir@6.5.0:
     resolution: {integrity: sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg==}
@@ -6243,6 +6249,8 @@ snapshots:
   fastq@1.19.1:
     dependencies:
       reusify: 1.1.0
+
+  favicon-fetch@1.0.0: {}
 
   fdir@6.5.0(picomatch@4.0.3):
     optionalDependencies:

@@ -1,14 +1,20 @@
 import { LoginModal } from '@/components/login-modal'
 import { useAccount } from '@/hooks/useAccount'
+import { useAccountSettings } from '@/hooks/useAccountSettings'
+import { useSubscriptions } from '@/hooks/useSubcriptions'
 import { useAccountStore } from '@/store/account'
 import { useEffect } from 'react'
 
 export default function App() {
   const isLoggedIn = useAccountStore((state) => Boolean(state.user))
-  const { retreiveUser } = useAccount()
+  const { retrieveAccount } = useAccount()
+  const { retrieveSubcriptions } = useSubscriptions()
+  const { retrieveAccountSettings } = useAccountSettings()
 
   useEffect(() => {
-    retreiveUser()
+    retrieveAccount()
+    retrieveSubcriptions()
+    retrieveAccountSettings()
   }, [])
 
   return (

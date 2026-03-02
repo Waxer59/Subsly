@@ -7,6 +7,7 @@
   <h2 class="text-xl italic text-center">Your monthly spending</h2>
   <h1 class="font-bold text-5xl text-center">{{ spendingLabel }}</h1>
 </div>
+
 @if (isDataEmpty()) {
   <app-graph-illustration class="max-w-[400px] block mx-auto w-[90%] h-[450px]" />
 } @else {

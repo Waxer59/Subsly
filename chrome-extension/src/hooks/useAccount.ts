@@ -4,7 +4,7 @@ import { useAccountStore } from '@/store/account'
 export const useAccount = () => {
   const setAccount = useAccountStore((state) => state.setAccount)
 
-  const retreiveUser = async () => {
+  const retrieveAccount = async () => {
     try {
       const resp = await fetch(`${API_URL}/users`, {
         credentials: 'include'
@@ -20,6 +20,6 @@ export const useAccount = () => {
   }
 
   return {
-    retreiveUser
+    retrieveAccount
   }
 }
