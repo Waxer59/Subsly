@@ -36,7 +36,10 @@ export const DashboardHeader = () => {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-32 bg-zinc-800 p-2">
-          <DropdownMenuItem variant="destructive" className="cursor-pointer" onClick={logout}>
+          <DropdownMenuItem
+            variant="destructive"
+            className="cursor-pointer"
+            onClick={logout}>
             Log out
           </DropdownMenuItem>
         </DropdownMenuContent>

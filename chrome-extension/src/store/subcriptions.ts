@@ -1,5 +1,5 @@
-import { Subscription } from "@/types";
-import { create } from "zustand";
+import { Subscription } from '@/types'
+import { create } from 'zustand'
 
 interface State {
   subscriptions: Subscription[]

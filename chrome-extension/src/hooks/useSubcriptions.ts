@@ -1,8 +1,10 @@
-import { API_URL } from "@/constants"
-import { useSubscriptionsStore } from "@/store/subcriptions"
+import { API_URL } from '@/constants'
+import { useSubscriptionsStore } from '@/store/subcriptions'
 
 export const useSubscriptions = () => {
-  const setSubscriptions = useSubscriptionsStore((state) => state.setSubscriptions)
+  const setSubscriptions = useSubscriptionsStore(
+    (state) => state.setSubscriptions
+  )
 
   const retrieveSubcriptions = async () => {
     try {

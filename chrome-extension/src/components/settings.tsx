@@ -23,10 +23,10 @@ export const Settings = () => {
   const currency = useAccountSettingsStore((state) => state.currency)
 
   const handleFormChange = (e: FormEvent<HTMLFormElement>) => {
-    const form = e.currentTarget;
-    const formData = new FormData(form);
+    const form = e.currentTarget
+    const formData = new FormData(form)
 
-    const currencyUpdate = formData.get('currency') as Currency;
+    const currencyUpdate = formData.get('currency') as Currency
 
     useAccountSettingsStore.setState({ currency: currencyUpdate })
   }
@@ -41,8 +41,8 @@ export const Settings = () => {
       <DialogContent className="bg-zinc-800">
         <DialogHeader>
           <DialogTitle>Settings</DialogTitle>
-          <form onChange={handleFormChange} className='mt-4'>
-            <Select name='currency' value={currency}>
+          <form onChange={handleFormChange} className="mt-4">
+            <Select name="currency" value={currency}>
               <SelectTrigger className="w-full">
                 <SelectValue placeholder={currency} />
               </SelectTrigger>

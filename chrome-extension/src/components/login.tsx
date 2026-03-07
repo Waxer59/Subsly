@@ -19,7 +19,6 @@ export const Login = () => {
   const { retrieveSubcriptions } = useSubscriptions()
   const { retrieveAccountSettings } = useAccountSettings()
 
-
   const handleOauthLogin = (provider: string) => {
     const authUrl = `${API_URL}/auth/login/${provider}?platform=chrome_extension`
     chrome.identity

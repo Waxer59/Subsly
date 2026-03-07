@@ -1,5 +1,5 @@
-import { Currency } from "@/types"
-import { create } from "zustand"
+import { Currency } from '@/types'
+import { create } from 'zustand'
 
 interface State {
   currency: Currency

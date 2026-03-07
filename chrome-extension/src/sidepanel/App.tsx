@@ -20,7 +20,8 @@ export default function App() {
   }, [])
 
   return (
-    <div className={`bg-zinc-800 w-full h-screen flex ${isLoggedIn ? 'overflow-scroll overflow-x-hidden' : 'items-center'} justify-center`}>
+    <div
+      className={`bg-zinc-800 w-full h-screen flex ${isLoggedIn ? 'overflow-scroll overflow-x-hidden' : 'items-center'} justify-center`}>
       {isLoggedIn ? <Dashboard /> : <Login />}
       <Toaster />
     </div>

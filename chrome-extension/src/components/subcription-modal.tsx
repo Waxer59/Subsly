@@ -48,7 +48,7 @@ export const SubcriptionModal: React.FC<Props> = ({
       toast.error("Please check the form's fields")
       return
     }
-    
+
     toast.success(isUpdate ? 'Changes saved' : 'Subcription added')
 
     setIsOpen(false)
@@ -66,7 +66,7 @@ export const SubcriptionModal: React.FC<Props> = ({
             </FieldLabel>
             <Input
               id="service-url"
-              name='service-url'
+              name="service-url"
               placeholder="https://amazon.com"
               value={serviceUrl}
               onChange={(e) => setServiceUrl(e.target.value)}
@@ -77,7 +77,7 @@ export const SubcriptionModal: React.FC<Props> = ({
             <FieldLabel htmlFor="subcription-name">Subcription name</FieldLabel>
             <Input
               id="subcription-name"
-              name='subcription-name'
+              name="subcription-name"
               placeholder="Amazon prime"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -89,7 +89,7 @@ export const SubcriptionModal: React.FC<Props> = ({
             </FieldLabel>
             <Input
               id="subcription-amount"
-              name='subcription-amount'
+              name="subcription-amount"
               type="number"
               min={0}
               defaultValue={0}
@@ -104,7 +104,7 @@ export const SubcriptionModal: React.FC<Props> = ({
             </FieldLabel>
             <Input
               id="subcription-renews"
-              name='subcription-renews'
+              name="subcription-renews"
               type="number"
               min={1}
               max={12}
