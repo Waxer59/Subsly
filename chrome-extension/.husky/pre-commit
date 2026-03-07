@@ -1,1 +1,2 @@
+cd chrome-extension
 npx lint-staged
