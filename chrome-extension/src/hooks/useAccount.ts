@@ -19,7 +19,23 @@ export const useAccount = () => {
     }
   }
 
+  const logout = async () => {
+    try {
+      const resp = await fetch(`${API_URL}/auth/logout`, {
+        credentials: 'include'
+      })
+      const data = await resp.json()
+
+      if (data) {
+        setAccount(null)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return {
-    retrieveAccount
+    retrieveAccount,
+    logout
   }
 }

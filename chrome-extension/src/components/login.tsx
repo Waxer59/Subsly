@@ -10,10 +10,15 @@ import {
 } from '@/components/ui/dialog'
 import { API_URL } from '@/constants'
 import { useAccount } from '@/hooks/useAccount'
+import { useAccountSettings } from '@/hooks/useAccountSettings'
+import { useSubscriptions } from '@/hooks/useSubcriptions'
 import { GithubIcon } from 'lucide-react'
 
-export const LoginModal = () => {
-  const { retrieve } = useAccount()
+export const Login = () => {
+  const { retrieveAccount } = useAccount()
+  const { retrieveSubcriptions } = useSubscriptions()
+  const { retrieveAccountSettings } = useAccountSettings()
+
 
   const handleOauthLogin = (provider: string) => {
     const authUrl = `${API_URL}/auth/login/${provider}?platform=chrome_extension`
@@ -22,7 +27,11 @@ export const LoginModal = () => {
         url: authUrl,
         interactive: true
       })
-      .then(retrieve)
+      .then(() => {
+        retrieveAccount()
+        retrieveSubcriptions()
+        retrieveAccountSettings()
+      })
   }
 
   return (

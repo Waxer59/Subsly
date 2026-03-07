@@ -6,7 +6,7 @@ interface State {
 }
 
 interface Actions {
-  setAccount: (account: User) => void
+  setAccount: (account: User | null) => void
   clear: () => void
 }
 

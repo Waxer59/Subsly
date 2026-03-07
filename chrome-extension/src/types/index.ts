@@ -17,3 +17,11 @@ export enum Currency {
   EUR = 'EUR',
   GBP = 'GBP'
 }
+
+export interface Subscription {
+  id: string
+  name: string
+  amount: number
+  renewsEvery: number
+  serviceUrl: string
+}

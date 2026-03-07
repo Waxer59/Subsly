@@ -1,9 +1,11 @@
 import { Card } from '@/components/ui/card'
 import { Subscription } from '@/types'
-import React from 'react'
 import faviconFetch from 'favicon-fetch'
 import { useAccountSettingsStore } from '@/store/account-settings'
 import { formatAmount } from '@/helpers/formatAmount'
+import { Button } from './ui/button'
+import { PencilIcon, TrashIcon } from 'lucide-react'
+import { SubcriptionModal } from './subcription-modal'
 
 interface Props {
   subcription: Subscription
@@ -20,20 +22,31 @@ export const SubcriptionCard: React.FC<Props> = ({ subcription }) => {
       <img
         src={favicon}
         alt={`${url.hostname} icon`}
-        className="object-cover w-25 h-25 rounded-md"
+        className="object-cover w-15 h-15 md:w-25 md:h-25 rounded-md"
         width="75px"
         height="75px"
       />
       <div className="flex flex-col gap-2 w-full">
-        <div className="flex items-center justify-between gap-8 w-full">
-          <h3 className="text-2xl font-bold truncate text-ellipsis overflow-hidden max-w-[18ch]">
-            <a className="group" href={url.href} target='_blank' rel='noreferrer'>
+        <div className="flex items-center justify-between gap-2 w-full">
+          <h3 className="text-2xl font-bold truncate text-ellipsis overflow-hidden max-w-[8ch] md:max-w-[18ch]">
+            <a
+              className="group"
+              href={url.href}
+              target="_blank"
+              rel="noreferrer">
               {subcription.name}
               <div className="bg-white h-0.5 w-0 group-hover:w-full transition-all duration-500"></div>
             </a>
           </h3>
           <div className="flex gap-4">
-            <button className="cursor-pointer"></button>
+            <SubcriptionModal isUpdate subcription={subcription}>
+              <Button className="cursor-pointer" variant="outline">
+                <PencilIcon />
+              </Button>
+            </SubcriptionModal>
+            <Button className="cursor-pointer" variant="destructive">
+              <TrashIcon />
+            </Button>
           </div>
         </div>
         <div className="flex flex-col gap-2">
