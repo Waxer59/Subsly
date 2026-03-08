@@ -6,6 +6,7 @@ import { formatAmount } from '@/helpers/formatAmount'
 import { Button } from './ui/button'
 import { PencilIcon, TrashIcon } from 'lucide-react'
 import { SubcriptionModal } from './subcription-modal'
+import { useSubscriptions } from '@/hooks/useSubcriptions'
 
 interface Props {
   subcription: Subscription
@@ -13,9 +14,17 @@ interface Props {
 
 export const SubcriptionCard: React.FC<Props> = ({ subcription }) => {
   const currency = useAccountSettingsStore((state) => state.currency)
-
+  const { deleteSubcription, updateSubcription } = useSubscriptions()
   const url = new URL(subcription.serviceUrl)
   const favicon = faviconFetch({ hostname: url.hostname })
+
+  const handleDelete = () => {
+    deleteSubcription(subcription.id)
+  }
+
+  const handleEdit = (updatedSubcription: Omit<Subscription, 'id'>) => {
+    updateSubcription(subcription.id, updatedSubcription)
+  }
 
   return (
     <Card className="w-full bg-zinc-800 flex items-center p-4 flex-row max-w-175 mx-auto">
@@ -39,12 +48,18 @@ export const SubcriptionCard: React.FC<Props> = ({ subcription }) => {
             </a>
           </h3>
           <div className="flex gap-4">
-            <SubcriptionModal isUpdate subcription={subcription}>
+            <SubcriptionModal
+              isUpdate
+              subcription={subcription}
+              onSubmit={handleEdit}>
               <Button className="cursor-pointer" variant="outline">
                 <PencilIcon />
               </Button>
             </SubcriptionModal>
-            <Button className="cursor-pointer" variant="destructive">
+            <Button
+              className="cursor-pointer"
+              variant="destructive"
+              onClick={handleDelete}>
               <TrashIcon />
             </Button>
           </div>

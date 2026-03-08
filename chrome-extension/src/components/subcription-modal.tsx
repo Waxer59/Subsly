@@ -11,6 +11,7 @@ interface Props {
   subcription?: Subscription
   children: React.ReactNode
   isUpdate?: boolean
+  onSubmit?: (data: Omit<Subscription, 'id'>) => void
 }
 
 const subcriptionSchema = z.object({
@@ -23,10 +24,10 @@ const subcriptionSchema = z.object({
 export const SubcriptionModal: React.FC<Props> = ({
   children,
   isUpdate,
-  subcription
+  subcription,
+  onSubmit
 }) => {
   const [isOpen, setIsOpen] = useState(false)
-
   const [serviceUrl, setServiceUrl] = useState(subcription?.serviceUrl ?? '')
   const [name, setName] = useState(subcription?.name ?? '')
   const [amount, setAmount] = useState(subcription?.amount ?? 0)
@@ -49,7 +50,7 @@ export const SubcriptionModal: React.FC<Props> = ({
       return
     }
 
-    toast.success(isUpdate ? 'Changes saved' : 'Subcription added')
+    onSubmit?.(subcriptionObject)
 
     setIsOpen(false)
   }
@@ -91,8 +92,8 @@ export const SubcriptionModal: React.FC<Props> = ({
               id="subcription-amount"
               name="subcription-amount"
               type="number"
+              step="0.01"
               min={0}
-              defaultValue={0}
               required
               value={amount}
               onChange={(e) => setAmount(+e.target.value)}

@@ -11,7 +11,7 @@ export const useAccount = () => {
       })
       const data = await resp.json()
 
-      if (data) {
+      if (data && resp.ok) {
         setAccount(data)
       }
     } catch (error) {
@@ -22,11 +22,11 @@ export const useAccount = () => {
   const logout = async () => {
     try {
       const resp = await fetch(`${API_URL}/auth/logout`, {
-        credentials: 'include'
+        credentials: 'include',
+        method: "POST"
       })
-      const data = await resp.json()
 
-      if (data) {
+      if (resp.ok) {
         setAccount(null)
       }
     } catch (error) {

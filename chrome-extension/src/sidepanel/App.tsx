@@ -8,22 +8,28 @@ import { useEffect } from 'react'
 import { Toaster } from 'sonner'
 
 export default function App() {
-  const isLoggedIn = useAccountStore((state) => Boolean(state.user))
+    const isLoggedIn = useAccountStore((state) => Boolean(state.user))
+  const user = useAccountStore((state) => state.user)
   const { retrieveAccount } = useAccount()
   const { retrieveSubcriptions } = useSubscriptions()
   const { retrieveAccountSettings } = useAccountSettings()
 
   useEffect(() => {
     retrieveAccount()
-    retrieveSubcriptions()
-    retrieveAccountSettings()
   }, [])
+
+  useEffect(() => {
+    if (user) {
+      retrieveSubcriptions()
+      retrieveAccountSettings()
+    }
+  }, [user])
 
   return (
     <div
       className={`bg-zinc-800 w-full h-screen flex ${isLoggedIn ? 'overflow-scroll overflow-x-hidden' : 'items-center'} justify-center`}>
       {isLoggedIn ? <Dashboard /> : <Login />}
-      <Toaster />
+      <Toaster theme='dark' />
     </div>
   )
 }

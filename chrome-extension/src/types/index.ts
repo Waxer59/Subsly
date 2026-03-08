@@ -4,6 +4,10 @@ export interface User {
   profile_picture: string
 }
 
+export interface UserSettings {
+  currency: Currency;
+}
+
 export interface Subscription {
   id: string
   name: string
