@@ -1,9 +1,9 @@
-package one.hgo.subsly_backend.userConfig;
+package one.hgo.subsly_backend.user_config;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import one.hgo.subsly_backend.userConfig.dtos.UserConfigDetails;
+import one.hgo.subsly_backend.user_config.dtos.UserConfigDetails;
 import one.hgo.subsly_backend.users.UsersService;
 import one.hgo.subsly_backend.users.dtos.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;

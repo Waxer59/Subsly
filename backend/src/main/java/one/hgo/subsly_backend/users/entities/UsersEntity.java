@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import one.hgo.subsly_backend.subscriptions.entities.SubscriptionsEntity;
-import one.hgo.subsly_backend.userConfig.entities.UserConfigEntity;
+import one.hgo.subsly_backend.user_config.entities.UserConfigEntity;
 
 import java.io.Serializable;
 import java.util.List;

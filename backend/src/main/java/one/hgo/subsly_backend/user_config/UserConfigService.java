@@ -1,8 +1,8 @@
-package one.hgo.subsly_backend.userConfig;
+package one.hgo.subsly_backend.user_config;
 
-import one.hgo.subsly_backend.userConfig.dtos.UserConfigDetails;
-import one.hgo.subsly_backend.userConfig.entities.UserConfigEntity;
-import one.hgo.subsly_backend.userConfig.repositories.UserConfigRepository;
+import one.hgo.subsly_backend.user_config.dtos.UserConfigDetails;
+import one.hgo.subsly_backend.user_config.entities.UserConfigEntity;
+import one.hgo.subsly_backend.user_config.repositories.UserConfigRepository;
 import one.hgo.subsly_backend.users.entities.UsersEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

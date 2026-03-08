@@ -11,3 +11,33 @@ services:
       POSTGRES_DB: subsly
     volumes:
       - ./_postgres:/var/lib/postgresql/data
+  redis:
+    container_name: subsly-redis
+    env_file:
+      - ./src/main/resources/.env
+    restart: always
+    image: redis:8.2.1-alpine
+    ports:
+      - ${REDIS_PORT}:6379
+    volumes:
+      - ./_redis:/data
+    environment:
+      - REDIS_ARGS=--requirepass ${REDIS_PASSWORD} --protected-mode yes
+    depends_on:
+      - db
+  redis-commander:
+    container_name: redis-commander
+    env_file:
+      - ./src/main/resources/.env
+    hostname: redis-commander
+    image: ghcr.io/joeferner/redis-commander:latest
+    restart: always
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_USERNAME=${REDIS_USERNAME}
+    depends_on:
+      - redis
+    ports:
+      - "8081:8081"

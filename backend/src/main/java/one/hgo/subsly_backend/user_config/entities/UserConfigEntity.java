@@ -1,4 +1,4 @@
-package one.hgo.subsly_backend.userConfig.entities;
+package one.hgo.subsly_backend.user_config.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import net.minidev.json.annotate.JsonIgnore;
-import one.hgo.subsly_backend.userConfig.enums.CurrenciesEnum;
+import one.hgo.subsly_backend.user_config.enums.CurrenciesEnum;
 import one.hgo.subsly_backend.users.entities.UsersEntity;
 
 import java.io.Serializable;

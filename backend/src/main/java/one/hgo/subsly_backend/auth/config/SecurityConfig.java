@@ -27,11 +27,16 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.List;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
     @Value("${frontend.url}")
     private String FRONTEND_URL;
+
+    @Value("${chrome-extension.id}")
+    private String CHROME_EXTENSION_ID;
 
     @Autowired
     private AuthService authService;
@@ -77,7 +82,11 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedOrigin(FRONTEND_URL);
+
+        String chromeExtension = "chrome-extension://" + CHROME_EXTENSION_ID;
+        String chromeExtensionUrl = "https://" + CHROME_EXTENSION_ID + ".chromiumapp.org";
+
+        corsConfiguration.setAllowedOrigins(List.of(FRONTEND_URL, chromeExtension, chromeExtensionUrl));
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.setAllowCredentials(true);

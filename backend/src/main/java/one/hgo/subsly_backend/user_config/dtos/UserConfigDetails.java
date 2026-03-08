@@ -1,9 +1,9 @@
-package one.hgo.subsly_backend.userConfig.dtos;
+package one.hgo.subsly_backend.user_config.dtos;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
-import one.hgo.subsly_backend.userConfig.enums.CurrenciesEnum;
+import one.hgo.subsly_backend.user_config.enums.CurrenciesEnum;
 
 @Data
 @Builder

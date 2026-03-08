@@ -1,4 +1,4 @@
-package one.hgo.subsly_backend.userConfig.enums;
+package one.hgo.subsly_backend.user_config.enums;
 
 public enum CurrenciesEnum {
     EUR("EUR"),
