@@ -65,5 +65,8 @@ redis:
   password: ${REDIS_PASSWORD}
   username: ${REDIS_USERNAME}
 
+auth:
+  cookie_name: subsly_auth
+
 frontend:
   url: ${FRONTEND_URL}
