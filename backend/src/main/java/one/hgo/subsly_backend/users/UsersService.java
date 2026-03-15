@@ -80,12 +80,17 @@ public class UsersService {
         }
     }
 
+    public void deleteUser(Long userId) {
+        usersRepository.deleteById(userId);
+    }
+
     private UserDetails mapToUserDetails(UsersEntity userDetails) {
         return UserDetails.builder()
                 .id(userDetails.getId())
                 .username(userDetails.getUsername())
                 .isInitialized(userDetails.getIsInitialized())
                 .profile_picture(userDetails.getProfile_picture())
+                .email(userDetails.getEmail())
                 .build();
     }
 
@@ -95,6 +100,7 @@ public class UsersService {
                 .username(userDetails.getUsername())
                 .profile_picture(userDetails.getProfile_picture())
                 .isInitialized(userDetails.getIsInitialized())
+                .email(userDetails.getEmail())
                 .build();
     }
 }

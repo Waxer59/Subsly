@@ -10,6 +10,7 @@ public class UserDetails {
     private Long id;
     private String username;
     private String profile_picture;
+    private String email;
 
     @JsonIgnore
     private Boolean isInitialized;

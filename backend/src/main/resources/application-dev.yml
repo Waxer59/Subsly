@@ -51,6 +51,23 @@ frontend:
 chrome-extension:
   id: ${CHROME_EXTENSION_ID}
 
+resend:
+  api-key: ${RESEND_API_KEY}
+  email: noreply@hgo.one
+
+otp:
+  expires_in: 300 #s | 5 mins
+  hash_cost: 12
+
+redis:
+  port: ${REDIS_PORT}
+  host: ${REDIS_HOST}
+  password: ${REDIS_PASSWORD}
+  username: ${REDIS_USERNAME}
+
+auth:
+  cookie_name: subsly_auth
+
 logging:
   level:
     org.springframework.security: DEBUG

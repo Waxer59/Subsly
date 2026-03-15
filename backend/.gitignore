@@ -16,6 +16,7 @@ target/
 .sts4-cache
 
 _postgres/
+_redis/
 
 ### IntelliJ IDEA ###
 .idea

@@ -51,5 +51,19 @@ jwt:
 chrome-extension:
   id: ${CHROME_EXTENSION_ID}
 
+otp:
+  expires_in: 300 #s | 5 mins
+  hash_cost: 12
+
+resend:
+  api-key: ${RESEND_API_KEY}
+  email: noreply@hgo.one
+
+redis:
+  port: ${REDIS_PORT}
+  host: ${REDIS_HOST}
+  password: ${REDIS_PASSWORD}
+  username: ${REDIS_USERNAME}
+
 frontend:
   url: ${FRONTEND_URL}

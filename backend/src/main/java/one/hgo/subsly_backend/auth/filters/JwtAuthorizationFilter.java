@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import one.hgo.subsly_backend.auth.AuthService;
 import one.hgo.subsly_backend.users.dtos.UserDetails;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -19,11 +20,15 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
+
+    @Value("${auth.cookie_name}")
+    private String cookieName;
+
     private final AuthService authService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        Cookie cookie = WebUtils.getCookie(request, AuthService.AUTH_COOKIE);
+        Cookie cookie = WebUtils.getCookie(request, cookieName);
         Optional<UserDetails> user = Optional.empty();
 
         if (cookie != null) {

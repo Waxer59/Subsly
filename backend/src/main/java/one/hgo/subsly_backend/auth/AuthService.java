@@ -1,11 +1,13 @@
 package one.hgo.subsly_backend.auth;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import one.hgo.subsly_backend.auth.dtos.JwtAuthClaims;
 import one.hgo.subsly_backend.auth.services.JwtService;
 import one.hgo.subsly_backend.users.UsersService;
 import one.hgo.subsly_backend.users.dtos.UserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,8 @@ import java.util.Optional;
 
 @Service
 public class AuthService {
-    public static final String AUTH_COOKIE = "sublsy_auth";
+    @Value("${auth.cookie_name}")
+    private String cookieName;
 
     @Autowired
     private JwtService jwtService;
@@ -33,7 +36,7 @@ public class AuthService {
     }
 
     public void setCookie(HttpServletResponse response, String token) {
-        ResponseCookie responseCookie = ResponseCookie.from(AUTH_COOKIE, token)
+        ResponseCookie responseCookie = ResponseCookie.from(cookieName, token)
                 .httpOnly(true)
                 .secure(true)
                 .maxAge(60 * 60 * 24 * 30) // 30 days
@@ -49,7 +52,23 @@ public class AuthService {
     }
 
     public void deleteCookie(HttpServletResponse response) {
-        ResponseCookie responseCookie = ResponseCookie.from(AUTH_COOKIE, "")
+        ResponseCookie responseCookie = ResponseCookie.from(cookieName, "")
+                .httpOnly(true)
+                .secure(true)
+                .maxAge(0)
+                .path("/")
+                .sameSite("None")
+                .build();
+
+        response.addHeader(HttpHeaders.SET_COOKIE, responseCookie.toString());
+    }
+
+    public void deleteCookieAndSession(HttpServletResponse response, HttpSession session) {
+        if (session != null) {
+            session.invalidate();
+        }
+
+        ResponseCookie responseCookie = ResponseCookie.from(cookieName, "")
                 .httpOnly(true)
                 .secure(true)
                 .maxAge(0)
