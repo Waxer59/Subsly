@@ -1,25 +1,26 @@
 import { SettingsIcon } from 'lucide-react'
-import { Button } from './ui/button'
+import { Button } from '../ui/button'
 import {
   Dialog,
   DialogTrigger,
   DialogContent,
   DialogHeader,
   DialogTitle
-} from './ui/dialog'
+} from '../ui/dialog'
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue
-} from './ui/select'
+} from '../ui/select'
 import { CURRENCIES } from '@/constants'
 import { useAccountSettingsStore } from '@/store/account-settings'
 import { FormEvent } from 'react'
 import { Currency } from '@/types'
 import { useAccountSettings } from '@/hooks/useAccountSettings'
 import { toast } from 'sonner'
+import { SettingsDeleteAccount } from './settings-delete-account'
 
 export const Settings = () => {
   const currency = useAccountSettingsStore((state) => state.currency)
@@ -31,7 +32,7 @@ export const Settings = () => {
 
     const currencyUpdate = formData.get('currency') as Currency
     updateAccountSettings({ currency: currencyUpdate })
-    toast.success("Settings updated!")
+    toast.success('Settings updated!')
     useAccountSettingsStore.setState({ currency: currencyUpdate })
   }
 
@@ -45,21 +46,22 @@ export const Settings = () => {
       <DialogContent className="bg-zinc-800">
         <DialogHeader>
           <DialogTitle>Settings</DialogTitle>
-          <form onChange={handleFormChange} className="mt-4">
-            <Select name="currency" defaultValue={currency}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder={currency} />
-              </SelectTrigger>
-              <SelectContent>
-                {CURRENCIES.map((currency) => (
-                  <SelectItem key={currency.value} value={currency.value}>
-                    {currency.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </form>
         </DialogHeader>
+        <form onChange={handleFormChange} className="mt-4">
+          <Select name="currency" defaultValue={currency}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder={currency} />
+            </SelectTrigger>
+            <SelectContent>
+              {CURRENCIES.map((currency) => (
+                <SelectItem key={currency.value} value={currency.value}>
+                  {currency.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </form>
+        <SettingsDeleteAccount />
       </DialogContent>
     </Dialog>
   )

@@ -5,7 +5,17 @@ export interface User {
 }
 
 export interface UserSettings {
-  currency: Currency;
+  currency: Currency
+}
+
+export interface DeleteAccountResponse {
+  state: DeleteAccountState
+}
+
+export enum DeleteAccountState {
+  SEND_OTP = 'SEND_OTP',
+  SUCCESS = 'SUCCESS',
+  FAILURE = 'FAILURE'
 }
 
 export interface Subscription {

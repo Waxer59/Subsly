@@ -7,9 +7,9 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { getUsernameInitials } from '@/helpers/getUsernameInitials'
 import { useAccountStore } from '@/store/account'
-import { Button } from './ui/button'
+import { Button } from '../ui/button'
 import { useAccount } from '@/hooks/useAccount'
-import { Settings } from './settings'
+import { Settings } from '../settings/settings'
 
 export const DashboardHeader = () => {
   const account = useAccountStore((state) => state.user)

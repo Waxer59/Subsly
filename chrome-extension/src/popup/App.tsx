@@ -3,8 +3,8 @@ import { useSubscriptions } from '@/hooks/useSubcriptions'
 import { useAccountStore } from '@/store/account'
 import { useEffect } from 'react'
 import { useAccountSettings } from '@/hooks/useAccountSettings'
-import { Dashboard } from '@/components/dashboard'
-import { Login } from '@/components/login'
+import { Dashboard } from '@/components/dashboard/dashboard'
+import { Login } from '@/components/auth/login'
 import { Toaster } from '@/components/ui/sonner'
 
 export default function App() {
@@ -29,7 +29,7 @@ export default function App() {
     <div
       className={`bg-zinc-800 w-96 h-120 flex ${isLoggedIn ? 'overflow-scroll overflow-x-hidden' : 'items-center'} justify-center`}>
       {isLoggedIn ? <Dashboard /> : <Login />}
-      <Toaster theme='dark' />
+      <Toaster theme="dark" />
     </div>
   )
 }

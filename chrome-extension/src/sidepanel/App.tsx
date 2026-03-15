@@ -1,5 +1,5 @@
-import { Dashboard } from '@/components/dashboard'
-import { Login } from '@/components/login'
+import { Dashboard } from '@/components/dashboard/dashboard'
+import { Login } from '@/components/auth/login'
 import { useAccount } from '@/hooks/useAccount'
 import { useAccountSettings } from '@/hooks/useAccountSettings'
 import { useSubscriptions } from '@/hooks/useSubcriptions'
@@ -8,7 +8,7 @@ import { useEffect } from 'react'
 import { Toaster } from 'sonner'
 
 export default function App() {
-    const isLoggedIn = useAccountStore((state) => Boolean(state.user))
+  const isLoggedIn = useAccountStore((state) => Boolean(state.user))
   const user = useAccountStore((state) => state.user)
   const { retrieveAccount } = useAccount()
   const { retrieveSubcriptions } = useSubscriptions()
@@ -29,7 +29,7 @@ export default function App() {
     <div
       className={`bg-zinc-800 w-full h-screen flex ${isLoggedIn ? 'overflow-scroll overflow-x-hidden' : 'items-center'} justify-center`}>
       {isLoggedIn ? <Dashboard /> : <Login />}
-      <Toaster theme='dark' />
+      <Toaster theme="dark" />
     </div>
   )
 }
