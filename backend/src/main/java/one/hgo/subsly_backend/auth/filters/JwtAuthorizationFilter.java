@@ -5,6 +5,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import one.hgo.subsly_backend.auth.AuthService;
 import one.hgo.subsly_backend.users.dtos.UserDetails;
@@ -41,6 +42,14 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authToken);
         } else {
             this.authService.deleteCookie(response);
+
+            SecurityContextHolder.clearContext();
+
+            HttpSession session = request.getSession(false);
+
+            if (session != null) {
+                session.invalidate();
+            }
         }
 
         filterChain.doFilter(request, response);
