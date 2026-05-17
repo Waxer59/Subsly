@@ -23,7 +23,6 @@ public class EmailSenderService {
 
     public void sendOTPEmail(String receiverEmail, String otp) throws IOException, ResendException {
         String html = this.getEmailHtmlFromFile("otp-email");
-
         html = html.replace("{{OTP_CODE}}", otp);
 
         Map<String, String> headers = new HashMap<>();

@@ -15,7 +15,7 @@ interface Props {
 }
 
 const subcriptionSchema = z.object({
-  name: z.string().min(1),
+  name: z.string().optional(),
   amount: z.number().min(0),
   renewsEvery: z.number().min(1).max(12),
   serviceUrl: z.url()

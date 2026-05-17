@@ -9,6 +9,8 @@ import one.hgo.subsly_backend.email_sender.EmailSenderService;
 import one.hgo.subsly_backend.users.dtos.DeleteUserDetails;
 import one.hgo.subsly_backend.users.dtos.UserDetails;
 import one.hgo.subsly_backend.users.enums.DeleteUserState;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -37,6 +39,8 @@ public class UsersController {
     @Value("${otp.hash_cost}")
     private Integer OTP_HASH_COST;
 
+    private Logger logger = LoggerFactory.getLogger(UsersController.class);
+
     @GetMapping
     public ResponseEntity<UserDetails> getUsers() {
         UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -55,7 +59,8 @@ public class UsersController {
             try {
                 emailSenderService.sendOTPEmail(user.getEmail(), otp);
                 cacheManagerService.saveOTP(String.valueOf(user.getId()), otpHash);
-            } catch (Exception _) {
+            } catch (Exception e) {
+                logger.error(e.getMessage());
                 return ResponseEntity.internalServerError().build();
             }
 

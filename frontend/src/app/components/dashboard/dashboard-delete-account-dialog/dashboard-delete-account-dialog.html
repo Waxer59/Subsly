@@ -1,0 +1,30 @@
+<hlm-dialog [state]="isDialogOpen() ? 'open' : 'closed'" (closed)="closeDialog()">
+  <button
+    hlmDialogTrigger
+    hlmBtn
+    class="cursor-pointer"
+    type="button"
+    variant="destructive"
+    class="cursor-pointer w-full"
+    (click)="openDialog()"
+  >
+    <lucide-angular name="trash" class="text-white" /> Delete Account
+  </button>
+  <hlm-dialog-content
+    *brnDialogContent="let ctx"
+    class="bg-zinc-800 flex flex-col !max-w-[400px] w-full"
+  >
+    <hlm-dialog-header>
+      <h3 brnDialogTitle hlm class="font-bold">Delete Account</h3>
+      <p hlmDialogDescription>
+        Please enter the OTP you received in your email to delete your account.
+      </p>
+    </hlm-dialog-header>
+    <form class="flex flex-col gap-4" #form="ngForm" (ngSubmit)="sendDeleteAccountRequest()">
+      <input hlmInput name="otp" type="text" placeholder="Enter OTP" required [(ngModel)]="otp" />
+      <button hlmBtn type="submit" class="cursor-pointer" variant="destructive">
+        Delete Account
+      </button>
+    </form>
+  </hlm-dialog-content>
+</hlm-dialog>

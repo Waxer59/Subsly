@@ -25,3 +25,13 @@ export interface Subscription {
   renewsEvery: number;
   serviceUrl: string;
 }
+
+export interface DeleteAccountResponse {
+  state: DeleteAccountState;
+}
+
+export enum DeleteAccountState {
+  SEND_OTP = 'SEND_OTP',
+  SUCCESS = 'SUCCESS',
+  FAILURE = 'FAILURE',
+}

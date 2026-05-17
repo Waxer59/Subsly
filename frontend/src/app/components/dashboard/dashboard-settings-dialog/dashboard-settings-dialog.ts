@@ -8,7 +8,9 @@ import { HlmSelectImports } from '@spartan-ng/helm/select';
 import { CURRENCIES } from '@constants';
 import { UserSettingsService } from '@services/user-settings.service';
 import { FormsModule } from '@angular/forms';
-import { UserSettings } from '@types';
+import { User, UserSettings } from '@types';
+import { DashboardDeleteAccountDialog } from '../dashboard-delete-account-dialog/dashboard-delete-account-dialog';
+import { UserAccountService } from '@/services/user-account.service';
 
 @Component({
   selector: 'app-dashboard-settings-dialog',
@@ -20,6 +22,7 @@ import { UserSettings } from '@types';
     BrnSelectImports,
     HlmSelectImports,
     FormsModule,
+    DashboardDeleteAccountDialog,
   ],
   templateUrl: './dashboard-settings-dialog.html',
 })
@@ -28,10 +31,15 @@ export class DashboardSettingsDialog {
   currencies = CURRENCIES;
 
   userSettings!: UserSettings;
+  userAccount: User | null | undefined;
 
-  constructor(readonly userSettingsService: UserSettingsService) {
+  constructor(
+    readonly userSettingsService: UserSettingsService,
+    readonly userAccountService: UserAccountService,
+  ) {
     effect(() => {
       this.userSettings = userSettingsService.userSettings();
+      this.userAccount = userAccountService.user;
     });
   }
 

@@ -55,15 +55,15 @@ export const Login = () => {
               variant="outline"
               className="w-full cursor-pointer"
               disabled={isLoggingIn}
-              onClick={() => handleOauthLogin('github')}>
-              <GithubIcon /> Login with Github
+              onClick={() => handleOauthLogin('google')}>
+              <GoogleIcon /> Login with Google
             </Button>
             <Button
               variant="outline"
               className="w-full cursor-pointer"
               disabled={isLoggingIn}
-              onClick={() => handleOauthLogin('google')}>
-              <GoogleIcon /> Login with Google
+              onClick={() => handleOauthLogin('github')}>
+              <GithubIcon /> Login with Github
             </Button>
           </DialogDescription>
         </DialogHeader>

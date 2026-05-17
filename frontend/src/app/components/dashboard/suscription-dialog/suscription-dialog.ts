@@ -10,7 +10,7 @@ import { Subscription } from '@types';
 import { toast } from 'ngx-sonner';
 
 const subcriptionSchema = z.object({
-  name: z.string().min(1),
+  name: z.string().optional(),
   amount: z.number().min(0),
   renewsEvery: z.number().min(1).max(12),
   serviceUrl: z.url(),
@@ -64,6 +64,7 @@ export class SuscriptionDialog {
     const { error } = subcriptionSchema.safeParse(this.subscription);
 
     if (error) {
+      console.log(error);
       toast.error('Invalid subcription data');
       return;
     }
