@@ -4,6 +4,7 @@ import { DashboardPage } from './pages/dashboard-page/dashboard-page';
 import { userResolver } from './resolvers/user.resolver';
 import { NotFound } from './pages/not-found/not-found';
 import { dashboardRedirectGuard } from './guards/dashboard-redirect-guard';
+import { PrivacyPolicyPage } from './pages/privacy-policy/privacy-policy';
 
 export const routes: Routes = [
   {
@@ -17,6 +18,10 @@ export const routes: Routes = [
     resolve: {
       isLoggedIn: userResolver,
     },
+  },
+  {
+    path: 'privacy-policy',
+    component: PrivacyPolicyPage,
   },
   {
     path: '**',
